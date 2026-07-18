@@ -4,18 +4,17 @@ import * as React from "react";
 import { useSession, signOut } from "next-auth/react";
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { NotificationCenter } from "@/components/notifications";
 import {
-  Menu,
-  Bell,
-  Search,
-  LogOut,
-  User,
-  ChevronDown,
-  Command,
-  Plus,
+  Menu, Search, LogOut, User, ChevronDown, Command,
 } from "lucide-react";
 
-export function Header({ onMenuClick }: { onMenuClick?: () => void }) {
+interface HeaderProps {
+  onMenuClick?: () => void;
+  onCommandPalette?: () => void;
+}
+
+export function Header({ onMenuClick, onCommandPalette }: HeaderProps) {
   const { data: session } = useSession();
   const [showUserMenu, setShowUserMenu] = React.useState(false);
 
@@ -27,29 +26,29 @@ export function Header({ onMenuClick }: { onMenuClick?: () => void }) {
             <Menu className="h-5 w-5" />
           </Button>
         )}
-        <div className="hidden md:flex items-center gap-2 glass-input rounded-[14px] px-3 py-2 transition-all focus-within:border-[#00C896]/30 focus-within:shadow-[0_0_0_3px_rgba(124,58,237,0.1)]">
-          <Search className="h-4 w-4 text-white/30" />
-          <input
-            type="text"
-            placeholder="Search anything..."
-            className="h-7 w-56 bg-transparent text-sm text-white/80 placeholder:text-white/25 focus:outline-none"
-          />
-          <kbd className="hidden lg:inline-flex h-5 items-center gap-1 rounded-md border border-white/10 bg-white/[0.03] px-1.5 font-mono text-[10px] font-medium text-white/25">
+        
+        {/* Search with Command Palette trigger */}
+        <button
+          onClick={onCommandPalette}
+          className="hidden md:flex items-center gap-2 glass-input rounded-[14px] px-3 py-2 transition-all hover:border-white/[0.12] hover:bg-white/[0.06] cursor-pointer group"
+        >
+          <Search className="h-4 w-4 text-white/30 group-hover:text-white/50" />
+          <span className="text-sm text-white/30 group-hover:text-white/50">Search anything...</span>
+          <kbd className="hidden lg:inline-flex h-5 items-center gap-1 rounded-[6px] bg-white/[0.06] px-1.5 font-mono text-[11px] text-white/40 ml-8">
             <Command className="h-3 w-3" />K
           </kbd>
-        </div>
+        </button>
       </div>
 
       <div className="flex items-center gap-2">
-        <Button variant="ghost" size="icon" className="relative rounded-[10px] hover:bg-white/[0.05]">
-          <Bell className="h-5 w-5 text-white/50" />
-          <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-[#EF4444] ring-2 ring-[#060606] animate-pulse" />
-        </Button>
+        {/* Notification Center */}
+        <NotificationCenter />
 
+        {/* User Menu */}
         <div className="relative">
           <button
             onClick={() => setShowUserMenu(!showUserMenu)}
-            className="flex items-center gap-2 rounded-[14px] p-1.5 hover:bg-white/[0.05] transition-all duration-200 border border-transparent hover:border-white/[0.06] hover-scale"
+            className="flex items-center gap-2 rounded-[14px] p-1.5 hover:bg-white/[0.04] transition-all duration-200 border border-transparent hover:border-white/[0.06] hover-scale"
           >
             <Avatar
               src={session?.user?.image}
