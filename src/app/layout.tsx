@@ -14,28 +14,28 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Kanvus - AI-Powered Project Management",
+  title: "Kanvus - Project Management",
   description:
-    "A modern project management platform with AI-powered insights, Kanban boards, and real-time collaboration.",
+    "Project management with Kanban boards, team workspaces, and an AI assistant for task prioritization.",
   keywords: [
     "project management",
     "kanban",
     "task management",
-    "AI assistant",
     "team collaboration",
+    "AI assistant",
   ],
   openGraph: {
-    title: "Kanvus - AI-Powered Project Management",
+    title: "Kanvus - Project Management",
     description:
-      "Manage projects with AI-powered insights and beautiful Kanban boards.",
+      "Kanban boards, team workspaces, and AI-powered task prioritization.",
     type: "website",
     images: ["/og-image.svg"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kanvus - AI-Powered Project Management",
+    title: "Kanvus - Project Management",
     description:
-      "Manage projects with AI-powered insights and beautiful Kanban boards.",
+      "Kanban boards, team workspaces, and AI-powered task prioritization.",
     images: ["/og-image.svg"],
   },
 };

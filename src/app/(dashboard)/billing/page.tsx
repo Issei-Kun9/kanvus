@@ -11,7 +11,7 @@ const plans = [
     name: "Free",
     price: 0,
     period: "",
-    description: "For individuals getting started",
+    description: "For personal use",
     features: [
       "3 workspaces",
       "5 projects per workspace",
@@ -25,7 +25,7 @@ const plans = [
     name: "Pro",
     price: 12,
     period: "/month",
-    description: "For teams that need more",
+    description: "For growing teams",
     features: [
       "Unlimited workspaces",
       "Unlimited projects",
@@ -66,7 +66,7 @@ export default function BillingPage() {
       <div>
         <h1 className="text-2xl font-bold">Billing</h1>
         <p className="text-muted-foreground">
-          Manage your subscription and billing.
+          Your plan and invoices.
         </p>
       </div>
 

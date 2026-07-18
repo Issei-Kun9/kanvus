@@ -24,7 +24,7 @@ export default function SettingsPage() {
       <div>
         <h1 className="text-2xl font-bold">Settings</h1>
         <p className="text-muted-foreground">
-          Manage your account and preferences.
+          Your profile, preferences, and billing.
         </p>
       </div>
 
@@ -36,7 +36,7 @@ export default function SettingsPage() {
             Profile
           </CardTitle>
           <CardDescription>
-            Update your personal information.
+            Name, email, and avatar.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -78,7 +78,7 @@ export default function SettingsPage() {
             Appearance
           </CardTitle>
           <CardDescription>
-            Customize the look and feel of Kanvus.
+            Dark and light mode.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -102,7 +102,7 @@ export default function SettingsPage() {
             Subscription Plan
           </CardTitle>
           <CardDescription>
-            Manage your Kanvus subscription.
+            Your current plan and billing.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -129,7 +129,7 @@ export default function SettingsPage() {
             Security
           </CardTitle>
           <CardDescription>
-            Manage your security settings.
+            Password and 2FA.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -148,7 +148,7 @@ export default function SettingsPage() {
             <div>
               <p className="font-medium">Two-Factor Authentication</p>
               <p className="text-sm text-muted-foreground">
-                Add an extra layer of security.
+                Extra login security via authenticator app.
               </p>
             </div>
             <Button variant="outline" size="sm">
@@ -166,14 +166,14 @@ export default function SettingsPage() {
             Notifications
           </CardTitle>
           <CardDescription>
-            Configure your notification preferences.
+            What you get notified about.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-3">
           {[
             { label: "Task assignments", description: "When someone assigns you a task" },
             { label: "Project updates", description: "When a project you belong to is updated" },
-            { label: "AI suggestions", description: "Daily AI-powered task recommendations" },
+            { label: "AI suggestions", description: "Daily task priority recommendations" },
           ].map((item) => (
             <div
               key={item.label}

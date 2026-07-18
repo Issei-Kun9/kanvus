@@ -10,8 +10,8 @@
 <h1 align="center">Kanvus</h1>
 
 <p align="center">
-  <strong>AI-Powered Project Management Platform</strong><br>
-  A production-grade full-stack SaaS built with Next.js 16, TypeScript, PostgreSQL, and OpenAI.
+  <strong>Project Management with Kanban Boards</strong><br>
+  Full-stack app built with Next.js 16, TypeScript, PostgreSQL, and OpenAI.
 </p>
 
 <p align="center">
@@ -27,12 +27,12 @@
 
 ## Overview
 
-Kanvus is a full-stack project management application that demonstrates real-world engineering across the entire stack — from database design and API architecture to responsive UI and AI integration. It's built to showcase skills that companies actively hire for in 2026.
+Kanvus is a project management app with Kanban boards, team workspaces, and an AI chat assistant for task prioritization. It covers auth, billing, drag-and-drop boards, analytics, and responsive UI.
 
 ### What It Does
 
 - **Kanban boards** with drag-and-drop task management across 5 workflow stages
-- **AI assistant** that analyzes tasks, suggests priorities, and provides project insights
+- **AI assistant** that analyzes tasks and suggests priorities
 - **Team collaboration** with workspaces, role-based access, and member management
 - **Stripe billing** with Free/Pro subscription tiers and checkout flow
 - **Analytics dashboard** with interactive bar charts and pie charts
@@ -48,7 +48,7 @@ Kanvus is a full-stack project management application that demonstrates real-wor
 - **Task CRUD** — Full create/read/update/delete with status, priority, assignee, due dates, and labels
 - **Comments** — Task-level discussion threads
 
-### AI-Powered
+### AI
 - **Priority analysis** — GPT-4o-mini suggests task priorities based on title, description, and deadlines
 - **Chat assistant** — Natural language interface for project insights and team recommendations
 
@@ -195,7 +195,7 @@ Plus auth models: `Account`, `Session`, `VerificationToken`
 
 ### Key Design Decisions
 
-1. **Prisma 7 + `@prisma/adapter-pg`** — Modern adapter pattern for type-safe PostgreSQL access
+1. **Prisma 7 + `@prisma/adapter-pg`** — Adapter pattern for type-safe PostgreSQL access
 2. **JWT sessions** — Stateless auth for better scalability over database sessions
 3. **Server-side AI** — OpenAI API never exposed to client; all calls go through API routes
 4. **Lazy SDK initialization** — Stripe and OpenAI clients initialize on first use, not at module load (build-safe)

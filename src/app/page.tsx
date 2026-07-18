@@ -15,25 +15,25 @@ export default function LandingPage() {
       icon: Zap,
       title: "Kanban Boards",
       description:
-        "Drag-and-drop task management with customizable workflows.",
+        "Drag and drop tasks across customizable workflow stages.",
     },
     {
       icon: Sparkles,
       title: "AI Assistant",
       description:
-        "Get smart task prioritization and project insights powered by AI.",
+        "Get task prioritization suggestions and project insights.",
     },
     {
       icon: Shield,
       title: "Team Collaboration",
       description:
-        "Workspaces, roles, and real-time updates for your entire team.",
+        "Workspaces with roles so everyone has the right access.",
     },
     {
       icon: BarChart3,
       title: "Analytics Dashboard",
       description:
-        "Track progress with beautiful charts and actionable metrics.",
+        "Charts and metrics to see where things stand.",
     },
   ];
 
@@ -41,9 +41,7 @@ export default function LandingPage() {
     "Unlimited workspaces and projects",
     "AI-powered task prioritization",
     "Real-time team collaboration",
-    "Advanced analytics and reporting",
     "Custom labels and filters",
-    "Stripe integration for billing",
   ];
 
   return (
@@ -72,15 +70,15 @@ export default function LandingPage() {
       <section className="flex flex-col items-center justify-center py-24 px-4 text-center">
         <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary mb-6">
           <Sparkles className="h-4 w-4" />
-          AI-Powered Project Management
+          Kanban + AI Task Management
         </div>
         <h1 className="text-4xl md:text-6xl font-bold tracking-tight max-w-3xl mb-6">
-          Ship projects faster with{" "}
-          <span className="text-primary">smart task management</span>
+          Organize your projects with{" "}
+          <span className="text-primary">Kanban boards</span>
         </h1>
         <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-8">
-          Kanvus combines beautiful Kanban boards with AI-powered insights
-          to help teams prioritize work, track progress, and deliver results.
+          Kanvus is a project management tool with drag-and-drop boards,
+          team workspaces, and an AI assistant to help prioritize tasks.
         </p>
         <div className="flex items-center gap-3">
           <Link href="/register">
@@ -111,10 +109,10 @@ export default function LandingPage() {
       <section className="py-24 px-4 bg-muted/30">
         <div className="container mx-auto">
           <h2 className="text-3xl font-bold text-center mb-4">
-            Everything you need to ship
+            What Kanvus does
           </h2>
           <p className="text-muted-foreground text-center mb-12 max-w-xl mx-auto">
-            Powerful features designed for modern teams that move fast.
+            Boards, tasks, analytics, and billing — all in one place.
           </p>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature) => (
@@ -138,9 +136,9 @@ export default function LandingPage() {
       {/* CTA */}
       <section className="py-24 px-4">
         <div className="container mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-4">Ready to get started?</h2>
+          <h2 className="text-3xl font-bold mb-4">Give it a try</h2>
           <p className="text-muted-foreground mb-8 max-w-md mx-auto">
-            Join teams using Kanvus to ship better products, faster.
+            Free to start. No credit card needed.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
             <ul className="text-left space-y-2">

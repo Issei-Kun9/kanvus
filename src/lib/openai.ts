@@ -22,9 +22,9 @@ export async function analyzeTaskPriority(task: {
     messages: [
       {
         role: "system",
-        content: `You are a project management AI assistant. Analyze tasks and suggest priorities.
+        content: `You are a project management assistant. Analyze tasks and suggest priorities.
 Respond with JSON only: { "priority": "URGENT" | "HIGH" | "MEDIUM" | "LOW" | "NONE", "reasoning": "brief explanation" }
-Consider: deadline urgency, task complexity implied by description, and general project management best practices.`,
+Consider deadline urgency, task complexity, and general project management best practices.`,
       },
       {
         role: "user",
@@ -54,7 +54,7 @@ export async function chatWithAI(
     messages: [
       {
         role: "system",
-        content: `You are Kanvus AI, a helpful project management assistant. You help users manage their projects and tasks efficiently.
+        content: `You are Kanvus, a project management assistant. Help users manage their projects and tasks efficiently.
 
 Current workspace context:
 - Projects: ${JSON.stringify(context.projects)}

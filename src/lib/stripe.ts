@@ -17,7 +17,7 @@ export { getStripe as stripe };
 export const PLANS = {
   FREE: {
     name: "Free",
-    description: "For individuals getting started",
+    description: "For personal use",
     price: 0,
     features: [
       "3 workspaces",
@@ -33,7 +33,7 @@ export const PLANS = {
   },
   PRO: {
     name: "Pro",
-    description: "For teams that need more",
+    description: "For growing teams",
     price: 12,
     stripePriceId: "price_pro_monthly",
     features: [

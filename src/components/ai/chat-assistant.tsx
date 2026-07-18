@@ -92,7 +92,7 @@ export function ChatAssistant({ workspaceId }: ChatAssistantProps) {
             <div className="rounded-full bg-primary/10 p-4 mb-4">
               <Sparkles className="h-8 w-8 text-primary" />
             </div>
-            <h3 className="font-semibold mb-1">Kanvus AI</h3>
+            <h3 className="font-semibold mb-1">Kanvus Assistant</h3>
             <p className="text-sm text-muted-foreground mb-6 max-w-sm">
               Ask me anything about your projects and tasks. I can help you
               prioritize, analyze progress, and suggest next steps.
