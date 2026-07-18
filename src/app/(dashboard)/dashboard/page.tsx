@@ -14,20 +14,30 @@ import {
   Users,
 } from "lucide-react";
 import { useWorkspace } from "@/hooks/use-workspace";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
-} from "recharts";
+import dynamic from "next/dynamic";
+
+const BarChart = dynamic(
+  () => import("recharts").then((m) => m.BarChart),
+  { ssr: false }
+);
+const Bar = dynamic(() => import("recharts").then((m) => m.Bar), { ssr: false });
+const XAxis = dynamic(() => import("recharts").then((m) => m.XAxis), { ssr: false });
+const YAxis = dynamic(() => import("recharts").then((m) => m.YAxis), { ssr: false });
+const CartesianGrid = dynamic(() => import("recharts").then((m) => m.CartesianGrid), { ssr: false });
+const Tooltip = dynamic(() => import("recharts").then((m) => m.Tooltip), { ssr: false });
+const ResponsiveContainer = dynamic(() => import("recharts").then((m) => m.ResponsiveContainer), { ssr: false });
+const PieChart = dynamic(() => import("recharts").then((m) => m.PieChart), { ssr: false });
+const Pie = dynamic(() => import("recharts").then((m) => m.Pie), { ssr: false });
+const Cell = dynamic(() => import("recharts").then((m) => m.Cell), { ssr: false });
 
 const COLORS = ["#6366f1", "#22c55e", "#eab308", "#ef4444", "#a855f7"];
+
+interface Task {
+  status: string;
+  dueDate: string | null;
+  createdAt: string;
+  priority: string;
+}
 
 interface ProjectStats {
   id: string;
@@ -35,7 +45,7 @@ interface ProjectStats {
   taskCount: number;
   completedTaskCount: number;
   color: string;
-  tasks: { status: string }[];
+  tasks: Task[];
 }
 
 interface TeamMember {
@@ -43,6 +53,16 @@ interface TeamMember {
   name: string | null;
   image: string | null;
   role: string;
+}
+
+function getWeeklyData(tasks: Task[]) {
+  const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const counts = [0, 0, 0, 0, 0, 0, 0];
+  for (const t of tasks) {
+    const d = new Date(t.createdAt);
+    counts[d.getDay()]++;
+  }
+  return [1, 2, 3, 4, 5, 6, 0].map((i) => ({ day: dayNames[i], tasks: counts[i] }));
 }
 
 export default function DashboardPage() {
@@ -55,8 +75,9 @@ export default function DashboardPage() {
     overdueTasks: 0,
   });
   const [recentProjects, setRecentProjects] = React.useState<ProjectStats[]>([]);
-  const [teamMembers, setTeamMembers] = React.useState<TeamMember[]>([]); // eslint-disable-line @typescript-eslint/no-unused-vars
-  const [loading, setLoading] = React.useState(true); // eslint-disable-line @typescript-eslint/no-unused-vars
+  const [teamMembers, setTeamMembers] = React.useState<TeamMember[]>([]);
+  const [weeklyData, setWeeklyData] = React.useState<{ day: string; tasks: number }[]>([]);
+  const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
     if (wsLoading || !workspaceId) return;
@@ -65,35 +86,39 @@ export default function DashboardPage() {
       try {
         const [projectsRes, membersRes] = await Promise.all([
           fetch(`/api/projects?workspaceId=${workspaceId}`),
-          fetch("/api/workspaces"),
+          fetch(`/api/workspaces/${workspaceId}/members`),
         ]);
 
         if (projectsRes.ok) {
-          const projects = await projectsRes.json();
+          const projects: ProjectStats[] = await projectsRes.json();
           setRecentProjects(projects.slice(0, 5));
 
           let totalTasks = 0;
           let completedTasks = 0;
           let inProgressTasks = 0;
+          let overdueTasks = 0;
+          const allTasks: Task[] = [];
+          const now = new Date();
 
           for (const p of projects) {
             totalTasks += p.taskCount || 0;
             completedTasks += p.completedTaskCount || 0;
             for (const t of p.tasks || []) {
+              allTasks.push(t);
               if (t.status === "IN_PROGRESS") inProgressTasks++;
+              if (t.dueDate && new Date(t.dueDate) < now && t.status !== "DONE") {
+                overdueTasks++;
+              }
             }
           }
 
-          const overdueTasks = Math.floor(totalTasks * 0.1);
-
           setStats({ totalTasks, completedTasks, inProgressTasks, overdueTasks });
+          setWeeklyData(getWeeklyData(allTasks));
         }
 
         if (membersRes.ok) {
-          const workspaces = await membersRes.json();
-          if (workspaces[0]?._count) {
-            // We don't have a members list endpoint yet, use workspace count
-          }
+          const members = await membersRes.json();
+          if (Array.isArray(members)) setTeamMembers(members.slice(0, 5));
         }
       } catch (err) {
         console.error("Failed to load dashboard:", err);
@@ -106,21 +131,30 @@ export default function DashboardPage() {
   }, [workspaceId, wsLoading]);
 
   const taskDistribution = [
-    { name: "Completed", value: stats.completedTasks || 0 },
-    { name: "In Progress", value: stats.inProgressTasks || 0 },
-    { name: "Overdue", value: stats.overdueTasks || 0 },
-    { name: "To Do", value: Math.max(0, stats.totalTasks - stats.completedTasks - stats.inProgressTasks - stats.overdueTasks) || 0 },
+    { name: "Completed", value: stats.completedTasks },
+    { name: "In Progress", value: stats.inProgressTasks },
+    { name: "Overdue", value: stats.overdueTasks },
+    { name: "To Do", value: Math.max(0, stats.totalTasks - stats.completedTasks - stats.inProgressTasks - stats.overdueTasks) },
   ];
 
-  const weeklyData = [
-    { day: "Mon", tasks: 0 },
-    { day: "Tue", tasks: 0 },
-    { day: "Wed", tasks: 0 },
-    { day: "Thu", tasks: 0 },
-    { day: "Fri", tasks: 0 },
-    { day: "Sat", tasks: 0 },
-    { day: "Sun", tasks: 0 },
-  ];
+  const hasChartData = taskDistribution.some((d) => d.value > 0);
+
+  if (loading || wsLoading) {
+    return (
+      <div className="space-y-6">
+        <div className="h-8 w-64 bg-muted animate-pulse rounded" />
+        <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
+          {[1, 2, 3, 4].map((i) => (
+            <div key={i} className="h-24 bg-muted animate-pulse rounded-xl" />
+          ))}
+        </div>
+        <div className="grid gap-6 lg:grid-cols-3">
+          <div className="lg:col-span-2 h-80 bg-muted animate-pulse rounded-xl" />
+          <div className="h-80 bg-muted animate-pulse rounded-xl" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -162,7 +196,7 @@ export default function DashboardPage() {
                 <BarChart data={weeklyData}>
                   <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
                   <XAxis dataKey="day" fontSize={12} />
-                  <YAxis fontSize={12} />
+                  <YAxis fontSize={12} allowDecimals={false} />
                   <Tooltip />
                   <Bar dataKey="tasks" fill="#6366f1" radius={[4, 4, 0, 0]} />
                 </BarChart>
@@ -176,34 +210,42 @@ export default function DashboardPage() {
             <CardTitle className="text-base">Task Distribution</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="h-[200px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={taskDistribution}
-                    cx="50%"
-                    cy="50%"
-                    innerRadius={50}
-                    outerRadius={80}
-                    paddingAngle={3}
-                    dataKey="value"
-                  >
-                    {taskDistribution.map((_, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                  </Pie>
-                  <Tooltip />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
-            <div className="grid grid-cols-2 gap-2 mt-2">
-              {taskDistribution.map((item, i) => (
-                <div key={item.name} className="flex items-center gap-2 text-xs">
-                  <div className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: COLORS[i] }} />
-                  <span className="text-muted-foreground">{item.name}</span>
+            {hasChartData ? (
+              <>
+                <div className="h-[200px]">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie
+                        data={taskDistribution}
+                        cx="50%"
+                        cy="50%"
+                        innerRadius={50}
+                        outerRadius={80}
+                        paddingAngle={3}
+                        dataKey="value"
+                      >
+                        {taskDistribution.map((_, index) => (
+                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                        ))}
+                      </Pie>
+                      <Tooltip />
+                    </PieChart>
+                  </ResponsiveContainer>
                 </div>
-              ))}
-            </div>
+                <div className="grid grid-cols-2 gap-2 mt-2">
+                  {taskDistribution.map((item, i) => (
+                    <div key={item.name} className="flex items-center gap-2 text-xs">
+                      <div className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: COLORS[i] }} />
+                      <span className="text-muted-foreground">{item.name}</span>
+                    </div>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <div className="flex items-center justify-center h-[200px] text-muted-foreground text-sm">
+                No tasks yet
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>
