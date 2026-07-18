@@ -27,46 +27,52 @@ export function StatsCards({
       title: "Total Tasks",
       value: totalTasks,
       icon: TrendingUp,
-      color: "text-blue-600 dark:text-blue-400",
-      bg: "bg-blue-50 dark:bg-blue-950",
+      gradient: "from-[#6c5ce7] to-[#a29bfe]",
+      iconBg: "bg-[#6c5ce7]/10",
+      iconColor: "text-[#6c5ce7]",
     },
     {
       title: "Completed",
       value: completedTasks,
       icon: CheckCircle2,
-      color: "text-green-600 dark:text-green-400",
-      bg: "bg-green-50 dark:bg-green-950",
+      gradient: "from-[#00b894] to-[#55efc4]",
+      iconBg: "bg-[#00b894]/10",
+      iconColor: "text-[#00b894]",
     },
     {
       title: "In Progress",
       value: inProgressTasks,
       icon: Clock,
-      color: "text-yellow-600 dark:text-yellow-400",
-      bg: "bg-yellow-50 dark:bg-yellow-950",
+      gradient: "from-[#fdcb6e] to-[#ffeaa7]",
+      iconBg: "bg-[#fdcb6e]/10",
+      iconColor: "text-[#fdcb6e]",
     },
     {
       title: "Overdue",
       value: overdueTasks,
       icon: AlertTriangle,
-      color: "text-red-600 dark:text-red-400",
-      bg: "bg-red-50 dark:bg-red-950",
+      gradient: "from-[#e74c3c] to-[#fd79a8]",
+      iconBg: "bg-[#e74c3c]/10",
+      iconColor: "text-[#e74c3c]",
     },
   ];
 
   return (
     <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
       {stats.map((stat) => (
-        <Card key={stat.title}>
-          <CardContent className="p-6">
+        <Card key={stat.title} className="relative overflow-hidden border-border/50 hover:shadow-lg transition-all duration-300 group">
+          {/* Gradient accent line */}
+          <div className={cn("absolute top-0 left-0 right-0 h-1 bg-gradient-to-r", stat.gradient)} />
+          <CardContent className="p-5 pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">
+                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
                   {stat.title}
                 </p>
-                <p className="text-3xl font-bold mt-1">{stat.value}</p>
+                <p className="text-3xl font-bold mt-1.5 tracking-tight">{stat.value}</p>
               </div>
-              <div className={cn("rounded-xl p-3", stat.bg)}>
-                <stat.icon className={cn("h-6 w-6", stat.color)} />
+              <div className={cn("rounded-xl p-2.5 transition-transform group-hover:scale-110", stat.iconBg)}>
+                <stat.icon className={cn("h-5 w-5", stat.iconColor)} />
               </div>
             </div>
           </CardContent>

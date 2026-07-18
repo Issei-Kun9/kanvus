@@ -24,6 +24,9 @@ export const metadata: Metadata = {
     "team collaboration",
     "AI assistant",
   ],
+  icons: {
+    icon: "/favicon.svg",
+  },
   openGraph: {
     title: "Kanvus - Project Management",
     description:

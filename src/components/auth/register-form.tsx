@@ -4,7 +4,7 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
 
 export function RegisterForm() {
@@ -40,72 +40,112 @@ export function RegisterForm() {
   };
 
   return (
-    <Card className="w-full max-w-md">
-      <CardHeader className="text-center">
-        <div className="flex justify-center mb-2">
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-primary-foreground font-bold text-xl">
-            F
+    <div className="flex min-h-screen">
+      {/* Left side - Branding */}
+      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-[#1a1625] via-[#1e1a2e] to-[#2d2640] relative overflow-hidden items-center justify-center">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/3 left-1/3 h-96 w-96 bg-[#6c5ce7]/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/3 right-1/3 h-96 w-96 bg-[#00b894]/10 rounded-full blur-3xl" />
+        </div>
+        <div className="relative text-center px-12">
+          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-[#6c5ce7] to-[#a29bfe] shadow-2xl shadow-[#6c5ce7]/30 mx-auto mb-6">
+            <span className="text-white font-bold text-3xl">K</span>
+          </div>
+          <h1 className="text-4xl font-bold text-white mb-4">Kanvus</h1>
+          <p className="text-white/50 text-lg">Start managing projects today.</p>
+          <div className="mt-12 space-y-4 text-left max-w-xs mx-auto">
+            {["Kanban boards", "AI assistant", "Team workspaces"].map((f) => (
+              <div key={f} className="flex items-center gap-3 text-white/60">
+                <div className="h-6 w-6 rounded-lg bg-[#00b894]/20 flex items-center justify-center">
+                  <div className="h-2 w-2 rounded-full bg-[#00b894]" />
+                </div>
+                <span className="text-sm">{f}</span>
+              </div>
+            ))}
           </div>
         </div>
-        <CardTitle className="text-2xl">Create account</CardTitle>
-        <CardDescription>Get started with Kanvus for free</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-3">
-          {error && (
-            <div className="rounded-lg bg-destructive/10 p-3 text-sm text-destructive">
-              {error}
+      </div>
+
+      {/* Right side - Form */}
+      <div className="flex-1 flex items-center justify-center px-6 py-12 bg-[#f8f7f4]">
+        <div className="w-full max-w-md">
+          {/* Mobile logo */}
+          <div className="lg:hidden flex items-center gap-2.5 mb-8">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[#6c5ce7] to-[#a29bfe] shadow-lg shadow-[#6c5ce7]/20">
+              <span className="text-white font-bold text-lg">K</span>
             </div>
-          )}
-
-          <div className="space-y-2">
-            <label className="text-sm font-medium">Name</label>
-            <Input
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Your name"
-              required
-            />
+            <span className="text-xl font-bold tracking-tight">Kanvus</span>
           </div>
 
-          <div className="space-y-2">
-            <label className="text-sm font-medium">Email</label>
-            <Input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@example.com"
-              required
-            />
+          <div className="mb-8">
+            <h2 className="text-3xl font-bold mb-2">Create account</h2>
+            <p className="text-[#64608b]">Get started with Kanvus for free</p>
           </div>
 
-          <div className="space-y-2">
-            <label className="text-sm font-medium">Password</label>
-            <Input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              minLength={8}
-              required
-            />
-            <p className="text-xs text-muted-foreground">
-              Must be at least 8 characters
-            </p>
-          </div>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {error && (
+              <div className="rounded-xl bg-[#e74c3c]/10 border border-[#e74c3c]/20 p-3.5 text-sm text-[#e74c3c]">
+                {error}
+              </div>
+            )}
 
-          <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? "Creating account..." : "Create account"}
-          </Button>
-        </form>
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-[#1a1625]">Name</label>
+              <Input
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Your name"
+                className="rounded-xl border-[#e8e5f0] bg-white h-11"
+                required
+              />
+            </div>
 
-        <p className="text-center text-sm text-muted-foreground mt-4">
-          Already have an account?{" "}
-          <Link href="/login" className="text-primary hover:underline">
-            Sign in
-          </Link>
-        </p>
-      </CardContent>
-    </Card>
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-[#1a1625]">Email</label>
+              <Input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="you@example.com"
+                className="rounded-xl border-[#e8e5f0] bg-white h-11"
+                required
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-[#1a1625]">Password</label>
+              <Input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                className="rounded-xl border-[#e8e5f0] bg-white h-11"
+                minLength={8}
+                required
+              />
+              <p className="text-xs text-[#64608b]">
+                Must be at least 8 characters
+              </p>
+            </div>
+
+            <Button
+              type="submit"
+              className="w-full rounded-xl bg-gradient-to-r from-[#6c5ce7] to-[#a29bfe] hover:from-[#5b4bd5] hover:to-[#9289f2] border-0 shadow-lg shadow-[#6c5ce7]/20 h-11"
+              disabled={loading}
+            >
+              {loading ? "Creating account..." : "Create account"}
+              {!loading && <ArrowRight className="h-4 w-4 ml-2" />}
+            </Button>
+          </form>
+
+          <p className="text-center text-sm text-[#64608b] mt-6">
+            Already have an account?{" "}
+            <Link href="/login" className="text-[#6c5ce7] font-medium hover:underline">
+              Sign in
+            </Link>
+          </p>
+        </div>
+      </div>
+    </div>
   );
 }

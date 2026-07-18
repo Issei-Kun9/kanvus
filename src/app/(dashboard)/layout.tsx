@@ -15,11 +15,11 @@ export default function DashboardLayout({
 
   return (
     <SessionProvider>
-      <div className="flex h-screen overflow-hidden">
+      <div className="flex h-screen overflow-hidden bg-[#f8f7f4]">
         {/* Mobile overlay */}
         {mobileMenuOpen && (
           <div
-            className="fixed inset-0 z-40 bg-black/50 lg:hidden"
+            className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm lg:hidden"
             onClick={() => setMobileMenuOpen(false)}
           />
         )}
@@ -29,7 +29,7 @@ export default function DashboardLayout({
           className={`
             fixed inset-y-0 left-0 z-50 lg:relative lg:z-auto
             ${mobileMenuOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
-            transition-transform duration-200
+            transition-transform duration-300 ease-out
           `}
         >
           <Sidebar
