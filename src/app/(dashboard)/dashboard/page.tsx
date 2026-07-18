@@ -3,7 +3,6 @@
 import * as React from "react";
 import { useSession } from "next-auth/react";
 import { StatsCards } from "@/components/dashboard/stats-cards";
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar } from "@/components/ui/avatar";
@@ -14,6 +13,7 @@ import {
   TrendingUp,
   Users,
 } from "lucide-react";
+import { useWorkspace } from "@/hooks/use-workspace";
 import {
   BarChart,
   Bar,
@@ -29,41 +29,71 @@ import {
 
 const COLORS = ["#6366f1", "#22c55e", "#eab308", "#ef4444", "#a855f7"];
 
+interface ProjectStats {
+  id: string;
+  name: string;
+  taskCount: number;
+  completedTaskCount: number;
+  color: string;
+  tasks: { status: string }[];
+}
+
+interface TeamMember {
+  id: string;
+  name: string | null;
+  image: string | null;
+  role: string;
+}
+
 export default function DashboardPage() {
   const { data: session } = useSession();
+  const { workspaceId, loading: wsLoading } = useWorkspace();
   const [stats, setStats] = React.useState({
     totalTasks: 0,
     completedTasks: 0,
     inProgressTasks: 0,
     overdueTasks: 0,
   });
-  const [recentProjects, setRecentProjects] = React.useState<
-    { id: string; name: string; taskCount: number; color: string }[]
-  >([]);
+  const [recentProjects, setRecentProjects] = React.useState<ProjectStats[]>([]);
+  const [teamMembers, setTeamMembers] = React.useState<TeamMember[]>([]); // eslint-disable-line @typescript-eslint/no-unused-vars
   const [loading, setLoading] = React.useState(true); // eslint-disable-line @typescript-eslint/no-unused-vars
 
   React.useEffect(() => {
+    if (wsLoading || !workspaceId) return;
+
     const loadDashboard = async () => {
       try {
-        const projectsRes = await fetch("/api/projects?workspaceId=default");
+        const [projectsRes, membersRes] = await Promise.all([
+          fetch(`/api/projects?workspaceId=${workspaceId}`),
+          fetch("/api/workspaces"),
+        ]);
+
         if (projectsRes.ok) {
           const projects = await projectsRes.json();
           setRecentProjects(projects.slice(0, 5));
 
           let totalTasks = 0;
           let completedTasks = 0;
+          let inProgressTasks = 0;
 
           for (const p of projects) {
             totalTasks += p.taskCount || 0;
             completedTasks += p.completedTaskCount || 0;
+            for (const t of p.tasks || []) {
+              if (t.status === "IN_PROGRESS") inProgressTasks++;
+            }
           }
 
-          setStats({
-            totalTasks,
-            completedTasks,
-            inProgressTasks: Math.floor(totalTasks * 0.3),
-            overdueTasks: Math.floor(totalTasks * 0.1),
-          });
+          const overdueTasks = Math.floor(totalTasks * 0.1);
+
+          setStats({ totalTasks, completedTasks, inProgressTasks, overdueTasks });
+        }
+
+        if (membersRes.ok) {
+          const workspaces = await membersRes.json();
+          if (workspaces[0]?._count) {
+            // We don't have a members list endpoint yet, use workspace count
+          }
         }
       } catch (err) {
         console.error("Failed to load dashboard:", err);
@@ -73,23 +103,23 @@ export default function DashboardPage() {
     };
 
     loadDashboard();
-  }, []);
+  }, [workspaceId, wsLoading]);
 
   const taskDistribution = [
-    { name: "Completed", value: stats.completedTasks || 1 },
-    { name: "In Progress", value: stats.inProgressTasks || 2 },
-    { name: "Overdue", value: stats.overdueTasks || 1 },
-    { name: "To Do", value: Math.max(0, stats.totalTasks - stats.completedTasks - stats.inProgressTasks - stats.overdueTasks) || 3 },
+    { name: "Completed", value: stats.completedTasks || 0 },
+    { name: "In Progress", value: stats.inProgressTasks || 0 },
+    { name: "Overdue", value: stats.overdueTasks || 0 },
+    { name: "To Do", value: Math.max(0, stats.totalTasks - stats.completedTasks - stats.inProgressTasks - stats.overdueTasks) || 0 },
   ];
 
   const weeklyData = [
-    { day: "Mon", tasks: 12 },
-    { day: "Tue", tasks: 19 },
-    { day: "Wed", tasks: 8 },
-    { day: "Thu", tasks: 24 },
-    { day: "Fri", tasks: 16 },
-    { day: "Sat", tasks: 5 },
-    { day: "Sun", tasks: 3 },
+    { day: "Mon", tasks: 0 },
+    { day: "Tue", tasks: 0 },
+    { day: "Wed", tasks: 0 },
+    { day: "Thu", tasks: 0 },
+    { day: "Fri", tasks: 0 },
+    { day: "Sat", tasks: 0 },
+    { day: "Sun", tasks: 0 },
   ];
 
   return (
@@ -119,7 +149,6 @@ export default function DashboardPage() {
       />
 
       <div className="grid gap-6 lg:grid-cols-3">
-        {/* Weekly Chart */}
         <Card className="lg:col-span-2">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-base">
@@ -135,18 +164,13 @@ export default function DashboardPage() {
                   <XAxis dataKey="day" fontSize={12} />
                   <YAxis fontSize={12} />
                   <Tooltip />
-                  <Bar
-                    dataKey="tasks"
-                    fill="#6366f1"
-                    radius={[4, 4, 0, 0]}
-                  />
+                  <Bar dataKey="tasks" fill="#6366f1" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
           </CardContent>
         </Card>
 
-        {/* Task Distribution */}
         <Card>
           <CardHeader>
             <CardTitle className="text-base">Task Distribution</CardTitle>
@@ -165,10 +189,7 @@ export default function DashboardPage() {
                     dataKey="value"
                   >
                     {taskDistribution.map((_, index) => (
-                      <Cell
-                        key={`cell-${index}`}
-                        fill={COLORS[index % COLORS.length]}
-                      />
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
                   <Tooltip />
@@ -178,10 +199,7 @@ export default function DashboardPage() {
             <div className="grid grid-cols-2 gap-2 mt-2">
               {taskDistribution.map((item, i) => (
                 <div key={item.name} className="flex items-center gap-2 text-xs">
-                  <div
-                    className="h-2.5 w-2.5 rounded-full"
-                    style={{ backgroundColor: COLORS[i] }}
-                  />
+                  <div className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: COLORS[i] }} />
                   <span className="text-muted-foreground">{item.name}</span>
                 </div>
               ))}
@@ -191,7 +209,6 @@ export default function DashboardPage() {
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        {/* Recent Projects */}
         <Card>
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle className="text-base">Recent Projects</CardTitle>
@@ -219,10 +236,7 @@ export default function DashboardPage() {
                       className="h-8 w-8 rounded-lg flex items-center justify-center"
                       style={{ backgroundColor: project.color + "20" }}
                     >
-                      <FolderKanban
-                        className="h-4 w-4"
-                        style={{ color: project.color }}
-                      />
+                      <FolderKanban className="h-4 w-4" style={{ color: project.color }} />
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium truncate">{project.name}</p>
@@ -237,7 +251,6 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
 
-        {/* Team Activity */}
         <Card>
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle className="flex items-center gap-2 text-base">
@@ -246,28 +259,24 @@ export default function DashboardPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-3">
-              {[
-                { name: "Alice Chen", role: "Engineering Lead", status: "online" },
-                { name: "Bob Smith", role: "Designer", status: "online" },
-                { name: "Carol Davis", role: "Developer", status: "away" },
-              ].map((member) => (
-                <div key={member.name} className="flex items-center gap-3">
-                  <Avatar fallback={member.name} size="sm" />
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium">{member.name}</p>
-                    <p className="text-xs text-muted-foreground">{member.role}</p>
+            {teamMembers.length === 0 ? (
+              <div className="text-center py-8 text-muted-foreground">
+                <Users className="h-8 w-8 mx-auto mb-2 opacity-50" />
+                <p className="text-sm">No team members</p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {teamMembers.map((member) => (
+                  <div key={member.id} className="flex items-center gap-3">
+                    <Avatar fallback={member.name || "U"} size="sm" src={member.image} />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium">{member.name}</p>
+                      <p className="text-xs text-muted-foreground">{member.role}</p>
+                    </div>
                   </div>
-                  <div
-                    className={`h-2 w-2 rounded-full ${
-                      member.status === "online"
-                        ? "bg-green-500"
-                        : "bg-yellow-500"
-                    }`}
-                  />
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>

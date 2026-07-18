@@ -17,6 +17,7 @@ interface ProjectData {
   name: string;
   description: string | null;
   color: string;
+  workspaceId: string;
   tasks: (Task & {
     assignee?: { id: string; name: string | null; image: string | null } | null;
     creator?: { id: string; name: string | null; image: string | null };
@@ -153,7 +154,7 @@ export default function ProjectDetailPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           message: `Suggest a priority for this task: "${selectedTask.title}" - ${selectedTask.description || "No description"}. Explain briefly why.`,
-          workspaceId: project?.workspace ? "default" : "default",
+          workspaceId: project?.workspaceId || "",
         }),
       });
       if (res.ok) {

@@ -30,6 +30,23 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "Project ID required" }, { status: 400 });
     }
 
+    const project = await db.project.findUnique({
+      where: { id: projectId },
+      select: { workspaceId: true },
+    });
+    if (!project) {
+      return NextResponse.json({ error: "Project not found" }, { status: 404 });
+    }
+
+    const member = await db.workspaceMember.findUnique({
+      where: {
+        userId_workspaceId: { userId: session.user.id, workspaceId: project.workspaceId },
+      },
+    });
+    if (!member) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+
     const where: Record<string, unknown> = { projectId };
     if (status) where.status = status;
     if (assigneeId) where.assigneeId = assigneeId;

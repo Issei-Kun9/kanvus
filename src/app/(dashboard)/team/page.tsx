@@ -1,25 +1,56 @@
 "use client";
 
 import * as React from "react";
+import { useWorkspace } from "@/hooks/use-workspace";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Users, UserPlus, Settings } from "lucide-react";
 
+interface TeamMember {
+  id: string;
+  name: string | null;
+  email: string | null;
+  image: string | null;
+  role: string;
+}
+
 export default function TeamPage() {
-  const [members] = React.useState([
-    { id: "1", name: "You", email: "you@example.com", role: "OWNER", status: "online" },
-    { id: "2", name: "Alice Chen", email: "alice@example.com", role: "ADMIN", status: "online" },
-    { id: "3", name: "Bob Smith", email: "bob@example.com", role: "MEMBER", status: "online" },
-    { id: "4", name: "Carol Davis", email: "carol@example.com", role: "MEMBER", status: "away" },
-  ]);
+  const { workspaceId, loading: wsLoading } = useWorkspace();
+  const [members, setMembers] = React.useState<TeamMember[]>([]);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    if (!workspaceId) return;
+    setLoading(true);
+    fetch(`/api/workspaces/${workspaceId}/members`)
+      .then((r) => r.json())
+      .then((data) => {
+        if (Array.isArray(data)) setMembers(data);
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, [workspaceId]);
 
   const roleColors: Record<string, string> = {
     OWNER: "bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300",
     ADMIN: "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300",
     MEMBER: "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300",
   };
+
+  if (wsLoading || loading) {
+    return (
+      <div className="max-w-3xl space-y-6">
+        <div className="h-8 w-32 bg-muted animate-pulse rounded" />
+        <Card>
+          <CardContent className="py-8 text-center text-muted-foreground">
+            Loading team members...
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-3xl space-y-6">
@@ -51,18 +82,13 @@ export default function TeamPage() {
                 className="flex items-center justify-between py-3"
               >
                 <div className="flex items-center gap-3">
-                  <div className="relative">
-                    <Avatar fallback={member.name} size="md" />
-                    <div
-                      className={`absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-background ${
-                        member.status === "online"
-                          ? "bg-green-500"
-                          : "bg-yellow-500"
-                      }`}
-                    />
-                  </div>
+                  <Avatar
+                    src={member.image}
+                    fallback={member.name || member.email || "U"}
+                    size="md"
+                  />
                   <div>
-                    <p className="text-sm font-medium">{member.name}</p>
+                    <p className="text-sm font-medium">{member.name || "Unknown"}</p>
                     <p className="text-xs text-muted-foreground">
                       {member.email}
                     </p>

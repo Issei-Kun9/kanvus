@@ -2,6 +2,20 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 
+async function isProjectMember(projectId: string, userId: string): Promise<boolean> {
+  const project = await db.project.findUnique({
+    where: { id: projectId },
+    select: { workspaceId: true },
+  });
+  if (!project) return false;
+  const member = await db.workspaceMember.findUnique({
+    where: {
+      userId_workspaceId: { userId, workspaceId: project.workspaceId },
+    },
+  });
+  return !!member;
+}
+
 export async function GET(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -14,12 +28,18 @@ export async function GET(
 
     const { id } = await params;
 
+    const authorized = await isProjectMember(id, session.user.id);
+    if (!authorized) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+
     const project = await db.project.findUnique({
       where: { id },
       include: {
         tasks: {
           include: {
             assignee: { select: { id: true, name: true, image: true } },
+            creator: { select: { id: true, name: true, image: true } },
             labels: { include: { label: true } },
             _count: { select: { comments: true } },
           },
@@ -40,14 +60,6 @@ export async function GET(
       return NextResponse.json({ error: "Project not found" }, { status: 404 });
     }
 
-    const isMember = project.workspace.members.some(
-      (m: { userId: string }) => m.userId === session.user!.id
-    );
-
-    if (!isMember) {
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-    }
-
     return NextResponse.json(project);
   } catch (error) {
     console.error("GET /api/projects/[id] error:", error);
@@ -66,12 +78,18 @@ export async function PATCH(
     }
 
     const { id } = await params;
-    const body = await req.json();
+
+    const authorized = await isProjectMember(id, session.user.id);
+    if (!authorized) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
 
     const project = await db.project.findUnique({ where: { id } });
     if (!project) {
       return NextResponse.json({ error: "Project not found" }, { status: 404 });
     }
+
+    const body = await req.json();
 
     const updated = await db.project.update({
       where: { id },
@@ -100,6 +118,11 @@ export async function DELETE(
     }
 
     const { id } = await params;
+
+    const authorized = await isProjectMember(id, session.user.id);
+    if (!authorized) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
 
     await db.project.delete({ where: { id } });
 

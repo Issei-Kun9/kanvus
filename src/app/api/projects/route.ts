@@ -40,12 +40,17 @@ export async function GET(req: NextRequest) {
       orderBy: { updatedAt: "desc" },
     });
 
-    const projectsWithStats = projects.map((p: (typeof projects)[number]) => ({
-      ...p,
+    const projectsWithStats = projects.map((p) => ({
+      id: p.id,
+      name: p.name,
+      description: p.description,
+      color: p.color,
+      icon: p.icon,
+      workspaceId: p.workspaceId,
+      createdAt: p.createdAt,
       taskCount: p._count.tasks,
-      completedTaskCount: p.tasks.filter((t: { status: string }) => t.status === "DONE").length,
-      _count: undefined,
-      tasks: undefined,
+      completedTaskCount: p.tasks.filter((t) => t.status === "DONE").length,
+      inProgressCount: p.tasks.filter((t) => t.status === "IN_PROGRESS").length,
     }));
 
     return NextResponse.json(projectsWithStats);

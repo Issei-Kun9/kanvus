@@ -6,8 +6,10 @@ import { CreateProjectModal } from "@/components/projects/create-project-modal";
 import { Button } from "@/components/ui/button";
 import { Plus, Search, FolderKanban } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { useWorkspace } from "@/hooks/use-workspace";
 
 export default function ProjectsPage() {
+  const { workspaceId, loading: wsLoading } = useWorkspace();
   const [projects, setProjects] = React.useState<
     {
       id: string;
@@ -27,8 +29,9 @@ export default function ProjectsPage() {
   const [search, setSearch] = React.useState("");
 
   const loadProjects = React.useCallback(async () => {
+    if (!workspaceId) return;
     try {
-      const res = await fetch("/api/projects?workspaceId=default");
+      const res = await fetch(`/api/projects?workspaceId=${workspaceId}`);
       if (res.ok) {
         const data = await res.json();
         setProjects(data);
@@ -38,7 +41,7 @@ export default function ProjectsPage() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [workspaceId]);
 
   React.useEffect(() => {
     loadProjects();
@@ -71,6 +74,17 @@ export default function ProjectsPage() {
   const filtered = projects.filter((p) =>
     p.name.toLowerCase().includes(search.toLowerCase())
   );
+
+  if (wsLoading || !workspaceId) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <div className="flex flex-col items-center gap-2 text-muted-foreground">
+          <FolderKanban className="h-8 w-8 animate-pulse" />
+          <p className="text-sm">Loading workspace...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -117,7 +131,7 @@ export default function ProjectsPage() {
         open={showCreate}
         onOpenChange={setShowCreate}
         onSubmit={handleCreate}
-        workspaceId="default"
+        workspaceId={workspaceId}
         loading={creating}
       />
     </div>
