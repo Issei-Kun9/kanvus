@@ -4,8 +4,14 @@ let _openai: OpenAI | null = null;
 
 function getOpenAI(): OpenAI {
   if (!_openai) {
+    const isOpenRouter = !!process.env.OPENROUTER_API_KEY;
     _openai = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY || "sk-placeholder",
+      apiKey: isOpenRouter
+        ? process.env.OPENROUTER_API_KEY
+        : process.env.OPENAI_API_KEY || "sk-placeholder",
+      baseURL: isOpenRouter
+        ? "https://openrouter.ai/api/v1"
+        : undefined,
     });
   }
   return _openai;
