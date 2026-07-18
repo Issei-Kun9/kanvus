@@ -6,7 +6,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - DATABASE_URL=postgresql://postgres:postgres@db:5432/flowboard
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/kanvus
       - NEXTAUTH_URL=http://localhost:3000
       - NEXTAUTH_SECRET=${NEXTAUTH_SECRET:-super-secret-key-change-in-production}
       - GITHUB_CLIENT_ID=${GITHUB_CLIENT_ID:-}
@@ -29,7 +29,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=flowboard
+      - POSTGRES_DB=kanvus
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:

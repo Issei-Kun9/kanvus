@@ -55,7 +55,7 @@ export default function LandingPage() {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground font-bold">
               F
             </div>
-            <span className="text-lg font-bold">FlowBoard</span>
+            <span className="text-lg font-bold">Kanvus</span>
           </Link>
           <div className="flex items-center gap-3">
             <Link href="/login">
@@ -79,7 +79,7 @@ export default function LandingPage() {
           <span className="text-primary">smart task management</span>
         </h1>
         <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-8">
-          FlowBoard combines beautiful Kanban boards with AI-powered insights
+          Kanvus combines beautiful Kanban boards with AI-powered insights
           to help teams prioritize work, track progress, and deliver results.
         </p>
         <div className="flex items-center gap-3">
@@ -140,7 +140,7 @@ export default function LandingPage() {
         <div className="container mx-auto text-center">
           <h2 className="text-3xl font-bold mb-4">Ready to get started?</h2>
           <p className="text-muted-foreground mb-8 max-w-md mx-auto">
-            Join teams using FlowBoard to ship better products, faster.
+            Join teams using Kanvus to ship better products, faster.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
             <ul className="text-left space-y-2">
@@ -164,7 +164,7 @@ export default function LandingPage() {
       {/* Footer */}
       <footer className="border-t py-8 px-4">
         <div className="container mx-auto flex items-center justify-between text-sm text-muted-foreground">
-          <p>&copy; 2026 FlowBoard. All rights reserved.</p>
+          <p>&copy; 2026 Kanvus. All rights reserved.</p>
           <div className="flex gap-4">
             <Link href="#" className="hover:text-foreground">
               Privacy

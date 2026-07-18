@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "FlowBoard - AI-Powered Project Management",
+  title: "Kanvus - AI-Powered Project Management",
   description:
     "A modern project management platform with AI-powered insights, Kanban boards, and real-time collaboration.",
   keywords: [
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     "team collaboration",
   ],
   openGraph: {
-    title: "FlowBoard - AI-Powered Project Management",
+    title: "Kanvus - AI-Powered Project Management",
     description:
       "Manage projects with AI-powered insights and beautiful Kanban boards.",
     type: "website",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "FlowBoard - AI-Powered Project Management",
+    title: "Kanvus - AI-Powered Project Management",
     description:
       "Manage projects with AI-powered insights and beautiful Kanban boards.",
     images: ["/og-image.svg"],

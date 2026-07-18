@@ -78,7 +78,7 @@ export default function SettingsPage() {
             Appearance
           </CardTitle>
           <CardDescription>
-            Customize the look and feel of FlowBoard.
+            Customize the look and feel of Kanvus.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -102,7 +102,7 @@ export default function SettingsPage() {
             Subscription Plan
           </CardTitle>
           <CardDescription>
-            Manage your FlowBoard subscription.
+            Manage your Kanvus subscription.
           </CardDescription>
         </CardHeader>
         <CardContent>

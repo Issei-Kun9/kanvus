@@ -54,7 +54,7 @@ export async function chatWithAI(
     messages: [
       {
         role: "system",
-        content: `You are FlowBoard AI, a helpful project management assistant. You help users manage their projects and tasks efficiently.
+        content: `You are Kanvus AI, a helpful project management assistant. You help users manage their projects and tasks efficiently.
 
 Current workspace context:
 - Projects: ${JSON.stringify(context.projects)}

@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 env:
-  DATABASE_URL: postgresql://postgres:postgres@localhost:5432/flowboard_test
+  DATABASE_URL: postgresql://postgres:postgres@localhost:5432/kanvus_test
 
 jobs:
   lint:
@@ -44,7 +44,7 @@ jobs:
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: flowboard_test
+          POSTGRES_DB: kanvus_test
         ports:
           - 5432:5432
         options: >-

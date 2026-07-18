@@ -45,7 +45,7 @@ export function LoginForm() {
           </div>
         </div>
         <CardTitle className="text-2xl">Welcome back</CardTitle>
-        <CardDescription>Sign in to your FlowBoard account</CardDescription>
+        <CardDescription>Sign in to your Kanvus account</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="grid grid-cols-2 gap-3">

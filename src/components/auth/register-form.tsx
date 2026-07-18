@@ -48,7 +48,7 @@ export function RegisterForm() {
           </div>
         </div>
         <CardTitle className="text-2xl">Create account</CardTitle>
-        <CardDescription>Get started with FlowBoard for free</CardDescription>
+        <CardDescription>Get started with Kanvus for free</CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-3">

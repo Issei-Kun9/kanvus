@@ -58,7 +58,7 @@
   <text x="850" y="439" font-family="system-ui, sans-serif" font-size="12" fill="#4ade80" text-anchor="middle">Done</text>
   
   <!-- Title -->
-  <text x="80" y="240" font-family="system-ui, -apple-system, sans-serif" font-size="72" font-weight="800" fill="white" letter-spacing="-2">FlowBoard</text>
+  <text x="80" y="240" font-family="system-ui, -apple-system, sans-serif" font-size="72" font-weight="800" fill="white" letter-spacing="-2">Kanvus</text>
   
   <!-- Subtitle -->
   <text x="80" y="300" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="400" fill="rgba(255,255,255,0.6)">AI-Powered Project Management</text>
@@ -90,5 +90,5 @@
   <text x="200" y="547" font-family="system-ui, sans-serif" font-size="16" font-weight="600" fill="white" text-anchor="middle">★ View on GitHub</text>
   
   <!-- Author -->
-  <text x="80" y="590" font-family="system-ui, sans-serif" font-size="14" fill="rgba(255,255,255,0.3)">github.com/Issei-Kun9/flowboard</text>
+  <text x="80" y="590" font-family="system-ui, sans-serif" font-size="14" fill="rgba(255,255,255,0.3)">github.com/Issei-Kun9/kanvus</text>
 </svg>

@@ -7,7 +7,7 @@
   <img src="https://img.shields.io/badge/License-MIT-green" alt="License" />
 </p>
 
-<h1 align="center">FlowBoard</h1>
+<h1 align="center">Kanvus</h1>
 
 <p align="center">
   <strong>AI-Powered Project Management Platform</strong><br>
@@ -27,7 +27,7 @@
 
 ## Overview
 
-FlowBoard is a full-stack project management application that demonstrates real-world engineering across the entire stack — from database design and API architecture to responsive UI and AI integration. It's built to showcase skills that companies actively hire for in 2026.
+Kanvus is a full-stack project management application that demonstrates real-world engineering across the entire stack — from database design and API architecture to responsive UI and AI integration. It's built to showcase skills that companies actively hire for in 2026.
 
 ### What It Does
 
@@ -100,8 +100,8 @@ FlowBoard is a full-stack project management application that demonstrates real-
 
 ```bash
 # Clone
-git clone https://github.com/Issei-Kun9/flowboard.git
-cd flowboard
+git clone https://github.com/Issei-Kun9/kanvus.git
+cd kanvus
 
 # Install
 npm install
@@ -135,7 +135,7 @@ docker compose up -d
 ## Project Structure
 
 ```
-flowboard/
+kanvus/
 ├── .github/workflows/         # CI/CD pipeline
 ├── prisma/
 │   ├── schema.prisma          # Database schema (6 models)
