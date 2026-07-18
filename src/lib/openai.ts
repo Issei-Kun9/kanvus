@@ -23,8 +23,9 @@ export async function analyzeTaskPriority(task: {
   dueDate?: string | null;
 }): Promise<{ priority: string; reasoning: string }> {
   const response = await getOpenAI().chat.completions.create({
-    model: "gpt-4o-mini",
+    model: "nvidia/nemotron-3-super-120b-a12b:free",
     temperature: 0.3,
+    max_tokens: 500,
     messages: [
       {
         role: "system",
@@ -55,8 +56,9 @@ export async function chatWithAI(
   }
 ): Promise<string> {
   const response = await getOpenAI().chat.completions.create({
-    model: "gpt-4o-mini",
+    model: "nvidia/nemotron-3-super-120b-a12b:free",
     temperature: 0.7,
+    max_tokens: 1000,
     messages: [
       {
         role: "system",

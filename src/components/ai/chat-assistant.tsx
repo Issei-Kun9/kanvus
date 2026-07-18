@@ -12,6 +12,26 @@ interface ChatAssistantProps {
   workspaceId: string;
 }
 
+function renderMarkdown(text: string): string {
+  let html = text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+
+  html = html.replace(/```(\w*)\n([\s\S]*?)```/g, "<pre><code>$2</code></pre>");
+  html = html.replace(/`([^`]+)`/g, "<code>$1</code>");
+  html = html.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+  html = html.replace(/\*(.+?)\*/g, "<em>$1</em>");
+
+  const parts = html.split(/(<pre>[\s\S]*?<\/pre>)/g);
+  html = parts.map((part) => {
+    if (part.startsWith("<pre>")) return part;
+    return part.replace(/\n/g, "<br/>");
+  }).join("");
+
+  return html;
+}
+
 export function ChatAssistant({ workspaceId }: ChatAssistantProps) {
   const [messages, setMessages] = React.useState<AIChatMessage[]>([]);
   const [input, setInput] = React.useState("");
@@ -85,7 +105,7 @@ export function ChatAssistant({ workspaceId }: ChatAssistantProps) {
         </div>
         <div>
           <h2 className="font-semibold text-white">AI Assistant</h2>
-          <p className="text-xs text-white/40">Powered by GPT-4</p>
+          <p className="text-xs text-white/40">Powered by Nemotron</p>
         </div>
         <div className="ml-auto flex items-center gap-2">
           <div className="h-2 w-2 rounded-full bg-[#22C55E] animate-pulse" />
@@ -144,7 +164,14 @@ export function ChatAssistant({ workspaceId }: ChatAssistantProps) {
                   : "glass-card"
               )}
             >
-              <p className="whitespace-pre-wrap">{msg.content}</p>
+              {msg.role === "assistant" ? (
+                <div
+                  className="whitespace-pre-wrap text-sm leading-relaxed [&_strong]:font-semibold [&_strong]:text-white [&_em]:italic [&_code]:rounded-md [&_code]:bg-white/10 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:text-[#7DD3FC] [&_pre]:overflow-x-auto [&_pre]:rounded-lg [&_pre]:bg-black/30 [&_pre]:p-3 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:py-0.5 [&_p]:mb-2 last:[&_p]:mb-0 [&_a]:text-[#7DD3FC] [&_a]:underline"
+                  dangerouslySetInnerHTML={{ __html: renderMarkdown(msg.content) }}
+                />
+              ) : (
+                <p className="whitespace-pre-wrap">{msg.content}</p>
+              )}
             </div>
             {msg.role === "user" && (
               <div className="flex h-8 w-8 items-center justify-center rounded-[10px] bg-white/[0.08] shrink-0">

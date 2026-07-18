@@ -17,6 +17,18 @@ interface HeaderProps {
 export function Header({ onMenuClick, onCommandPalette }: HeaderProps) {
   const { data: session } = useSession();
   const [showUserMenu, setShowUserMenu] = React.useState(false);
+  const menuRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    if (!showUserMenu) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setShowUserMenu(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [showUserMenu]);
 
   return (
     <header className="flex h-16 items-center justify-between bg-[#101010]/60 backdrop-blur-xl border-b border-white/[0.06] px-4 lg:px-6">
@@ -45,7 +57,7 @@ export function Header({ onMenuClick, onCommandPalette }: HeaderProps) {
         <NotificationCenter />
 
         {/* User Menu */}
-        <div className="relative">
+        <div className="relative" ref={menuRef}>
           <button
             onClick={() => setShowUserMenu(!showUserMenu)}
             className="flex items-center gap-2 rounded-[14px] p-1.5 hover:bg-white/[0.04] transition-all duration-200 border border-transparent hover:border-white/[0.06] hover-scale"
@@ -62,33 +74,27 @@ export function Header({ onMenuClick, onCommandPalette }: HeaderProps) {
           </button>
 
           {showUserMenu && (
-            <>
-              <div
-                className="fixed inset-0 z-40"
-                onClick={() => setShowUserMenu(false)}
-              />
-              <div className="absolute right-0 top-full z-50 mt-2 w-56 glass-strong rounded-[16px] p-1.5 shadow-xl shadow-black/40 dropdown-enter">
-                <div className="border-b border-white/[0.06] px-3 py-2.5 mb-1">
-                  <p className="text-sm font-semibold text-white">{session?.user?.name}</p>
-                  <p className="text-xs text-white/40 truncate">
-                    {session?.user?.email}
-                  </p>
-                </div>
-                <div className="space-y-0.5">
-                  <button className="flex w-full items-center gap-2.5 rounded-[10px] px-3 py-2 text-sm text-white/60 hover:bg-white/[0.04] transition-colors">
-                    <User className="h-4 w-4 text-white/30" />
-                    Profile
-                  </button>
-                  <button
-                    onClick={() => signOut({ callbackUrl: "/login" })}
-                    className="flex w-full items-center gap-2.5 rounded-[10px] px-3 py-2 text-sm text-[#EF4444] hover:bg-[#EF4444]/5 transition-colors"
-                  >
-                    <LogOut className="h-4 w-4" />
-                    Sign out
-                  </button>
-                </div>
+            <div className="absolute right-0 top-full z-50 mt-2 w-56 glass-strong rounded-[16px] p-1.5 shadow-xl shadow-black/40 dropdown-enter">
+              <div className="border-b border-white/[0.06] px-3 py-2.5 mb-1">
+                <p className="text-sm font-semibold text-white">{session?.user?.name}</p>
+                <p className="text-xs text-white/40 truncate">
+                  {session?.user?.email}
+                </p>
               </div>
-            </>
+              <div className="space-y-0.5">
+                <button className="flex w-full items-center gap-2.5 rounded-[10px] px-3 py-2 text-sm text-white/60 hover:bg-white/[0.04] transition-colors">
+                  <User className="h-4 w-4 text-white/30" />
+                  Profile
+                </button>
+                <button
+                  onClick={() => signOut({ callbackUrl: "/login" })}
+                  className="flex w-full items-center gap-2.5 rounded-[10px] px-3 py-2 text-sm text-[#EF4444] hover:bg-[#EF4444]/5 transition-colors"
+                >
+                  <LogOut className="h-4 w-4" />
+                  Sign out
+                </button>
+              </div>
+            </div>
           )}
         </div>
       </div>

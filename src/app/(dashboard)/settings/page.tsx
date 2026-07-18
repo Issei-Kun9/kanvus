@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,6 +15,7 @@ import {
   Shield,
   Bell,
   Save,
+  LogOut,
 } from "lucide-react";
 
 export default function SettingsPage() {
@@ -200,6 +201,29 @@ export default function SettingsPage() {
               </button>
             </div>
           ))}
+        </CardContent>
+      </Card>
+
+      {/* Account */}
+      <Card className="animate-slide-up stagger-6">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-base">
+            <LogOut className="h-4 w-4 text-[#EF4444]" />
+            Account
+          </CardTitle>
+          <CardDescription>
+            Sign out of your account.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Button
+            variant="outline"
+            className="gap-2 rounded-[14px] border-[#EF4444]/30 text-[#EF4444] hover:bg-[#EF4444]/10 hover:text-[#EF4444]"
+            onClick={() => signOut({ callbackUrl: "/login" })}
+          >
+            <LogOut className="h-4 w-4" />
+            Sign Out
+          </Button>
         </CardContent>
       </Card>
     </div>
