@@ -3,7 +3,6 @@
 import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Avatar } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Select } from "@/components/ui/select";
@@ -20,7 +19,6 @@ import {
 } from "@/lib/utils";
 import {
   Calendar,
-  MessageSquare,
   Send,
   Sparkles,
   Tag,

@@ -3,7 +3,7 @@ import { auth } from "@/lib/auth";
 import { stripe as getStripe, PLANS } from "@/lib/stripe";
 import { db } from "@/lib/db";
 
-export async function POST(req: NextRequest) {
+export async function POST(_req: NextRequest) {
   try {
     const session = await auth();
     if (!session?.user?.id) {

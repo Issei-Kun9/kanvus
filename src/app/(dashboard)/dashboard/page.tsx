@@ -40,7 +40,7 @@ export default function DashboardPage() {
   const [recentProjects, setRecentProjects] = React.useState<
     { id: string; name: string; taskCount: number; color: string }[]
   >([]);
-  const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = React.useState(true); // eslint-disable-line @typescript-eslint/no-unused-vars
 
   React.useEffect(() => {
     const loadDashboard = async () => {
@@ -52,7 +52,6 @@ export default function DashboardPage() {
 
           let totalTasks = 0;
           let completedTasks = 0;
-          const inProgressTasks = 0;
 
           for (const p of projects) {
             totalTasks += p.taskCount || 0;

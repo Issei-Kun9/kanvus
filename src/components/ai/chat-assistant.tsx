@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Sparkles, Send, Bot, User } from "lucide-react";
+import { Sparkles, Send, Bot } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { AIChatMessage } from "@/types";
 
