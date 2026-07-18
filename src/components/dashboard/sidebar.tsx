@@ -16,36 +16,12 @@ import {
 } from "lucide-react";
 
 const navItems = [
-  {
-    label: "Dashboard",
-    href: "/dashboard",
-    icon: LayoutDashboard,
-  },
-  {
-    label: "Projects",
-    href: "/projects",
-    icon: FolderKanban,
-  },
-  {
-    label: "Team",
-    href: "/team",
-    icon: Users,
-  },
-  {
-    label: "AI Assistant",
-    href: "/ai",
-    icon: Sparkles,
-  },
-  {
-    label: "Billing",
-    href: "/billing",
-    icon: CreditCard,
-  },
-  {
-    label: "Settings",
-    href: "/settings",
-    icon: Settings,
-  },
+  { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+  { label: "Projects", href: "/projects", icon: FolderKanban },
+  { label: "Team", href: "/team", icon: Users },
+  { label: "AI Assistant", href: "/ai", icon: Sparkles },
+  { label: "Billing", href: "/billing", icon: CreditCard },
+  { label: "Settings", href: "/settings", icon: Settings },
 ];
 
 interface SidebarProps {
@@ -60,37 +36,39 @@ export function Sidebar({ collapsed = false, onToggle }: SidebarProps) {
     <aside
       className={cn(
         "flex flex-col transition-all duration-300 relative overflow-hidden",
-        "bg-gradient-to-b from-[#1a1625] via-[#1e1a2e] to-[#2d2640]",
-        "text-white/80",
+        "glass-strong",
+        "bg-[#13111c]/80",
         collapsed ? "w-16" : "w-64"
       )}
     >
-      {/* Subtle gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#6c5ce7]/10 via-transparent to-[#fdcb6e]/5 pointer-events-none" />
+      {/* Ambient glow */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-40 h-40 bg-[#6c5ce7]/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 right-0 w-32 h-32 bg-[#fdcb6e]/5 rounded-full blur-3xl" />
+      </div>
 
       {/* Logo */}
-      <div className="relative flex h-16 items-center border-b border-white/10 px-4">
-        {!collapsed && (
+      <div className="relative flex h-16 items-center border-b border-white/[0.06] px-4">
+        {!collapsed ? (
           <Link href="/dashboard" className="flex items-center gap-3">
-            <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[#6c5ce7] to-[#a29bfe] shadow-lg shadow-[#6c5ce7]/30">
+            <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[#6c5ce7] to-[#a29bfe] shadow-lg shadow-[#6c5ce7]/25">
               <span className="text-white font-bold text-lg">K</span>
             </div>
             <div className="flex flex-col">
               <span className="text-lg font-bold text-white tracking-tight">Kanvus</span>
-              <span className="text-[10px] text-white/40 -mt-0.5 tracking-widest uppercase">Project Hub</span>
+              <span className="text-[10px] text-white/30 -mt-0.5 tracking-widest uppercase">Project Hub</span>
             </div>
           </Link>
-        )}
-        {collapsed && (
+        ) : (
           <Link href="/dashboard" className="mx-auto">
-            <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[#6c5ce7] to-[#a29bfe] shadow-lg shadow-[#6c5ce7]/30">
+            <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[#6c5ce7] to-[#a29bfe] shadow-lg shadow-[#6c5ce7]/25">
               <span className="text-white font-bold text-lg">K</span>
             </div>
           </Link>
         )}
       </div>
 
-      {/* Navigation */}
+      {/* Nav */}
       <nav className="relative flex-1 space-y-1 p-3">
         {navItems.map((item) => {
           const isActive =
@@ -105,8 +83,8 @@ export function Sidebar({ collapsed = false, onToggle }: SidebarProps) {
               className={cn(
                 "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200",
                 isActive
-                  ? "bg-white/10 text-white shadow-lg shadow-[#6c5ce7]/20"
-                  : "text-white/50 hover:bg-white/5 hover:text-white/80",
+                  ? "glass bg-white/[0.08] text-white shadow-lg shadow-[#6c5ce7]/10"
+                  : "text-white/40 hover:bg-white/[0.04] hover:text-white/70",
                 collapsed && "justify-center px-2"
               )}
               title={collapsed ? item.label : undefined}
@@ -117,33 +95,29 @@ export function Sidebar({ collapsed = false, onToggle }: SidebarProps) {
               )} />
               {!collapsed && <span>{item.label}</span>}
               {isActive && !collapsed && (
-                <div className="ml-auto h-1.5 w-1.5 rounded-full bg-[#a29bfe]" />
+                <div className="ml-auto h-1.5 w-1.5 rounded-full bg-[#a29bfe] shadow-sm shadow-[#a29bfe]/50" />
               )}
             </Link>
           );
         })}
       </nav>
 
-      {/* Bottom section */}
+      {/* Bottom */}
       {!collapsed && (
-        <div className="relative mx-3 mb-3 rounded-xl bg-gradient-to-r from-[#6c5ce7]/20 to-[#a29bfe]/10 border border-white/10 p-3">
-          <p className="text-xs font-medium text-white/70">Need help?</p>
-          <p className="text-[10px] text-white/40 mt-0.5">Check our docs</p>
+        <div className="relative mx-3 mb-3 glass-card rounded-xl p-3">
+          <p className="text-xs font-medium text-white/60">Need help?</p>
+          <p className="text-[10px] text-white/30 mt-0.5">Check our docs</p>
         </div>
       )}
 
       {/* Toggle */}
       {onToggle && (
-        <div className="relative border-t border-white/10 p-2">
+        <div className="relative border-t border-white/[0.06] p-2">
           <button
             onClick={onToggle}
-            className="flex w-full items-center justify-center rounded-lg p-2 text-white/40 hover:bg-white/5 hover:text-white/70 transition-colors"
+            className="flex w-full items-center justify-center rounded-lg p-2 text-white/30 hover:bg-white/[0.04] hover:text-white/60 transition-colors"
           >
-            {collapsed ? (
-              <ChevronRight className="h-4 w-4" />
-            ) : (
-              <ChevronLeft className="h-4 w-4" />
-            )}
+            {collapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
           </button>
         </div>
       )}

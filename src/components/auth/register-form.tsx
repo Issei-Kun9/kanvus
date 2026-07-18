@@ -4,7 +4,7 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 export function RegisterForm() {
@@ -40,9 +40,9 @@ export function RegisterForm() {
   };
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen bg-[#13111c]">
       {/* Left side - Branding */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-[#1a1625] via-[#1e1a2e] to-[#2d2640] relative overflow-hidden items-center justify-center">
+      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden items-center justify-center">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-1/3 left-1/3 h-96 w-96 bg-[#6c5ce7]/20 rounded-full blur-3xl" />
           <div className="absolute bottom-1/3 right-1/3 h-96 w-96 bg-[#00b894]/10 rounded-full blur-3xl" />
@@ -67,63 +67,67 @@ export function RegisterForm() {
       </div>
 
       {/* Right side - Form */}
-      <div className="flex-1 flex items-center justify-center px-6 py-12 bg-[#f8f7f4]">
-        <div className="w-full max-w-md">
+      <div className="flex-1 flex items-center justify-center px-6 py-12 relative">
+        {/* Ambient glow */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/3 right-1/4 h-96 w-96 bg-[#6c5ce7]/[0.04] rounded-full blur-[120px]" />
+        </div>
+        <div className="w-full max-w-md relative z-10">
           {/* Mobile logo */}
           <div className="lg:hidden flex items-center gap-2.5 mb-8">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[#6c5ce7] to-[#a29bfe] shadow-lg shadow-[#6c5ce7]/20">
               <span className="text-white font-bold text-lg">K</span>
             </div>
-            <span className="text-xl font-bold tracking-tight">Kanvus</span>
+            <span className="text-xl font-bold tracking-tight text-white">Kanvus</span>
           </div>
 
           <div className="mb-8">
-            <h2 className="text-3xl font-bold mb-2">Create account</h2>
-            <p className="text-[#64608b]">Get started with Kanvus for free</p>
+            <h2 className="text-3xl font-bold mb-2 text-white">Create account</h2>
+            <p className="text-white/40">Get started with Kanvus for free</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             {error && (
-              <div className="rounded-xl bg-[#e74c3c]/10 border border-[#e74c3c]/20 p-3.5 text-sm text-[#e74c3c]">
+              <div className="rounded-xl bg-[#e74c3c]/10 border border-[#e74c3c]/20 p-3.5 text-sm text-[#ff6b6b]">
                 {error}
               </div>
             )}
 
             <div className="space-y-2">
-              <label className="text-sm font-medium text-[#1a1625]">Name</label>
+              <label className="text-sm font-medium text-white/60">Name</label>
               <Input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Your name"
-                className="rounded-xl border-[#e8e5f0] bg-white h-11"
+                className="rounded-xl glass-input border-white/10 h-11 text-white"
                 required
               />
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium text-[#1a1625]">Email</label>
+              <label className="text-sm font-medium text-white/60">Email</label>
               <Input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                className="rounded-xl border-[#e8e5f0] bg-white h-11"
+                className="rounded-xl glass-input border-white/10 h-11 text-white"
                 required
               />
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium text-[#1a1625]">Password</label>
+              <label className="text-sm font-medium text-white/60">Password</label>
               <Input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="rounded-xl border-[#e8e5f0] bg-white h-11"
+                className="rounded-xl glass-input border-white/10 h-11 text-white"
                 minLength={8}
                 required
               />
-              <p className="text-xs text-[#64608b]">
+              <p className="text-xs text-white/25">
                 Must be at least 8 characters
               </p>
             </div>
@@ -138,9 +142,9 @@ export function RegisterForm() {
             </Button>
           </form>
 
-          <p className="text-center text-sm text-[#64608b] mt-6">
+          <p className="text-center text-sm text-white/30 mt-6">
             Already have an account?{" "}
-            <Link href="/login" className="text-[#6c5ce7] font-medium hover:underline">
+            <Link href="/login" className="text-[#a29bfe] font-medium hover:underline">
               Sign in
             </Link>
           </p>
