@@ -1,4 +1,11 @@
 <p align="center">
+  <img src="https://img.shields.io/github/stars/Issei-Kun9/kanvus?style=social" alt="GitHub Stars" />
+  <img src="https://img.shields.io/github/forks/Issei-Kun9/kanvus?style=social" alt="GitHub Forks" />
+  <img src="https://img.shields.io/github/issues/Issei-Kun9/kanvus" alt="GitHub Issues" />
+  <img src="https://img.shields.io/github/contributors/Issei-Kun9/kanvus" alt="Contributors" />
+</p>
+
+<p align="center">
   <img src="https://img.shields.io/badge/Next.js-16-black?logo=next.js" alt="Next.js" />
   <img src="https://img.shields.io/badge/TypeScript-5-blue?logo=typescript" alt="TypeScript" />
   <img src="https://img.shields.io/badge/Tailwind-4-38bdf8?logo=tailwindcss" alt="Tailwind" />
