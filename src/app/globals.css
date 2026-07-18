@@ -571,6 +571,67 @@ body {
 }
 
 /* ============================================
+   8px SPACING SYSTEM
+   ============================================ */
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+}
+
+/* ============================================
+   PERFORMANCE - GPU ACCELERATION
+   ============================================ */
+.will-change-transform {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+/* Prevent layout shifts */
+.contain-layout {
+  contain: layout style;
+}
+
+/* Optimize animations for 60fps */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================
+   LAYOUT SHIFT PREVENTION
+   ============================================ */
+.aspect-square { aspect-ratio: 1; }
+.aspect-video { aspect-ratio: 16/9; }
+
+/* Image optimization */
+img, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Font loading optimization */
+@font-face {
+  font-display: swap;
+}
+
+/* ============================================
    RESPONSIVE
    ============================================ */
 @media (max-width: 768px) {
@@ -580,5 +641,14 @@ body {
   
   .glass-input {
     border-radius: 12px;
+  }
+}
+
+/* ============================================
+   SCROLL BEHAVIOR
+   ============================================ */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
   }
 }

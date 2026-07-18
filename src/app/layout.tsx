@@ -6,40 +6,75 @@ import "./globals.css";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Kanvus - Project Management",
+  title: {
+    default: "Kanvus — AI-Powered Project Management",
+    template: "%s | Kanvus",
+  },
   description:
-    "Project management with Kanban boards, team workspaces, and an AI assistant for task prioritization.",
+    "The AI workspace that thinks with your team. Kanban boards, real-time collaboration, and intelligent task prioritization — all in one beautiful app.",
   keywords: [
     "project management",
-    "kanban",
+    "kanban board",
     "task management",
     "team collaboration",
     "AI assistant",
+    "productivity",
+    "workflow",
+    "sprint planning",
+    "agile",
+    "remote work",
   ],
+  authors: [{ name: "Kanvus" }],
+  creator: "Kanvus",
+  metadataBase: new URL("https://kanvus.dev"),
   icons: {
     icon: "/favicon.svg",
+    apple: "/favicon.svg",
   },
   openGraph: {
-    title: "Kanvus - Project Management",
-    description:
-      "Kanban boards, team workspaces, and AI-powered task prioritization.",
     type: "website",
-    images: ["/og-image.svg"],
+    locale: "en_US",
+    url: "https://kanvus.dev",
+    siteName: "Kanvus",
+    title: "Kanvus — AI-Powered Project Management",
+    description:
+      "The AI workspace that thinks with your team. Kanban boards, real-time collaboration, and intelligent task prioritization.",
+    images: [
+      {
+        url: "/og-image.svg",
+        width: 1200,
+        height: 630,
+        alt: "Kanvus - Project Management",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kanvus - Project Management",
+    title: "Kanvus — AI-Powered Project Management",
     description:
-      "Kanban boards, team workspaces, and AI-powered task prioritization.",
+      "The AI workspace that thinks with your team. Kanban boards, real-time collaboration, and intelligent task prioritization.",
     images: ["/og-image.svg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
@@ -54,10 +89,14 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable}`}
       suppressHydrationWarning
     >
-      <body className="min-h-screen antialiased">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      </head>
+      <body className="min-h-screen antialiased bg-[#060606] text-white">
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
