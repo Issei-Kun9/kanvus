@@ -15,7 +15,7 @@ interface TaskCardProps {
 }
 
 export function TaskCard({ task, onClick, isDragging }: TaskCardProps) {
-  const priorityConfig = TASK_PRIORITY_CONFIG[task.priority];
+  const priorityConfig = TASK_PRIORITY_CONFIG[task.priority as keyof typeof TASK_PRIORITY_CONFIG];
 
   return (
     <div

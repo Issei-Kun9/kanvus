@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useSession } from "next-auth/react";
 import { StatsCards } from "@/components/dashboard/stats-cards";
-import { RecentActivity } from "@/components/dashboard/recent-activity";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar } from "@/components/ui/avatar";
@@ -52,7 +52,7 @@ export default function DashboardPage() {
 
           let totalTasks = 0;
           let completedTasks = 0;
-          let inProgressTasks = 0;
+          const inProgressTasks = 0;
 
           for (const p of projects) {
             totalTasks += p.taskCount || 0;

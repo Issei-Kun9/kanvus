@@ -41,7 +41,7 @@ export async function GET(
     }
 
     const isMember = project.workspace.members.some(
-      (m) => m.userId === session.user!.id
+      (m: { userId: string }) => m.userId === session.user!.id
     );
 
     if (!isMember) {

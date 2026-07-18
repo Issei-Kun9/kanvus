@@ -87,7 +87,7 @@ export function TaskDetail({
           <div className="flex items-start gap-3">
             <div
               className="mt-1 h-3 w-3 rounded-full shrink-0"
-              style={{ backgroundColor: TASK_STATUS_CONFIG[task.status].color }}
+              style={{ backgroundColor: TASK_STATUS_CONFIG[task.status as keyof typeof TASK_STATUS_CONFIG].color }}
             />
             <div className="flex-1">
               {editingTitle ? (

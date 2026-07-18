@@ -38,10 +38,10 @@ export async function POST(req: NextRequest) {
       take: 5,
     });
 
-    const projectContext = projects.map((p) => ({
+    const projectContext = projects.map((p: (typeof projects)[number]) => ({
       name: p.name,
       taskCount: p._count.tasks,
-      completedCount: p.tasks.filter((t) => t.status === "DONE").length,
+      completedCount: p.tasks.filter((t: { status: string }) => t.status === "DONE").length,
     }));
 
     const recentTasks = await db.task.findMany({

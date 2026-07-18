@@ -91,7 +91,7 @@ export function KanbanBoard({ tasks, onTaskMove, onTaskClick }: KanbanBoardProps
     <DragDropContext onDragEnd={handleDragEnd}>
       <div className="flex gap-4 overflow-x-auto pb-4 h-full">
         {COLUMNS.map((status) => {
-          const config = TASK_STATUS_CONFIG[status];
+          const config = TASK_STATUS_CONFIG[status as keyof typeof TASK_STATUS_CONFIG];
           const columnTasksList = columnTasks[status] || [];
 
           return (

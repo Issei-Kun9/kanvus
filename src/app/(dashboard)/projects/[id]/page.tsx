@@ -8,7 +8,7 @@ import { CreateTaskModal } from "@/components/tasks/create-task-modal";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Plus, Settings, Sparkles } from "lucide-react";
+import { ArrowLeft, Plus } from "lucide-react";
 import Link from "next/link";
 import type { Task, TaskStatus, TaskPriority } from "@/types";
 

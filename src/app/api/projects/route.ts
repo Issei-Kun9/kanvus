@@ -41,10 +41,10 @@ export async function GET(req: NextRequest) {
       orderBy: { updatedAt: "desc" },
     });
 
-    const projectsWithStats = projects.map((p) => ({
+    const projectsWithStats = projects.map((p: (typeof projects)[number]) => ({
       ...p,
       taskCount: p._count.tasks,
-      completedTaskCount: p.tasks.filter((t) => t.status === "DONE").length,
+      completedTaskCount: p.tasks.filter((t: { status: string }) => t.status === "DONE").length,
       _count: undefined,
       tasks: undefined,
     }));

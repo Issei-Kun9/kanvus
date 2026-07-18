@@ -32,6 +32,7 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
+      - run: npx prisma generate
       - run: npx tsc --noEmit
 
   test:
@@ -59,7 +60,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npx prisma generate
-      - run: npx prisma db push --skip-generate
+      - run: npx prisma db push
       - run: npm run build
         env:
           NEXTAUTH_SECRET: test-secret

@@ -14,7 +14,6 @@ import {
   Palette,
   Shield,
   Bell,
-  CheckCircle2,
 } from "lucide-react";
 
 export default function SettingsPage() {
