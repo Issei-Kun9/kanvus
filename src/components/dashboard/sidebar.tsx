@@ -52,8 +52,17 @@ export function Sidebar({ collapsed = false, onToggle }: SidebarProps) {
       <div className="relative flex h-16 items-center border-b border-white/[0.06] px-4">
         {!collapsed ? (
           <Link href="/dashboard" className="flex items-center gap-3 hover-scale">
-            <div className="relative flex h-9 w-9 items-center justify-center rounded-[12px] gradient-primary shadow-lg shadow-[#7C3AED]/25">
-              <span className="text-white font-bold text-lg">K</span>
+            <div className="relative flex h-9 w-9 items-center justify-center rounded-[12px] gradient-primary shadow-lg shadow-[#7C3AED]/25 overflow-hidden">
+              <svg viewBox="0 0 32 32" className="w-6 h-6" fill="none">
+                <g stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="10" y1="6" x2="10" y2="26"/>
+                  <line x1="10" y1="16" x2="22" y2="6"/>
+                  <line x1="10" y1="16" x2="22" y2="26"/>
+                </g>
+                <circle cx="24" cy="8" r="1.5" fill="white" opacity="0.9"/>
+                <circle cx="24" cy="16" r="1.5" fill="white" opacity="0.7"/>
+                <circle cx="24" cy="24" r="1.5" fill="white" opacity="0.5"/>
+              </svg>
             </div>
             <div className="flex flex-col">
               <span className="text-lg font-bold text-white tracking-tight">Kanvus</span>
@@ -62,8 +71,17 @@ export function Sidebar({ collapsed = false, onToggle }: SidebarProps) {
           </Link>
         ) : (
           <Link href="/dashboard" className="mx-auto hover-scale">
-            <div className="relative flex h-9 w-9 items-center justify-center rounded-[12px] gradient-primary shadow-lg shadow-[#7C3AED]/25">
-              <span className="text-white font-bold text-lg">K</span>
+            <div className="relative flex h-9 w-9 items-center justify-center rounded-[12px] gradient-primary shadow-lg shadow-[#7C3AED]/25 overflow-hidden">
+              <svg viewBox="0 0 32 32" className="w-6 h-6" fill="none">
+                <g stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="10" y1="6" x2="10" y2="26"/>
+                  <line x1="10" y1="16" x2="22" y2="6"/>
+                  <line x1="10" y1="16" x2="22" y2="26"/>
+                </g>
+                <circle cx="24" cy="8" r="1.5" fill="white" opacity="0.9"/>
+                <circle cx="24" cy="16" r="1.5" fill="white" opacity="0.7"/>
+                <circle cx="24" cy="24" r="1.5" fill="white" opacity="0.5"/>
+              </svg>
             </div>
           </Link>
         )}
