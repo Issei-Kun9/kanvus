@@ -14,6 +14,7 @@ import {
   Palette,
   Shield,
   Bell,
+  Save,
 } from "lucide-react";
 
 export default function SettingsPage() {
@@ -21,18 +22,19 @@ export default function SettingsPage() {
 
   return (
     <div className="max-w-3xl space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold">Settings</h1>
-        <p className="text-muted-foreground">
+      {/* Header */}
+      <div className="animate-slide-up">
+        <h1 className="text-2xl font-bold tracking-tight">Settings</h1>
+        <p className="text-white/40">
           Your profile, preferences, and billing.
         </p>
       </div>
 
       {/* Profile */}
-      <Card>
+      <Card className="animate-slide-up stagger-1">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-base">
-            <User className="h-4 w-4" />
+            <User className="h-4 w-4 text-[#7C3AED]" />
             Profile
           </CardTitle>
           <CardDescription>
@@ -48,33 +50,37 @@ export default function SettingsPage() {
             />
             <div>
               <p className="font-medium">{session?.user?.name}</p>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-white/40">
                 {session?.user?.email}
               </p>
             </div>
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
-              <label className="text-sm font-medium">Name</label>
-              <Input defaultValue={session?.user?.name || ""} />
+              <label className="text-sm font-medium text-white/60">Name</label>
+              <Input defaultValue={session?.user?.name || ""} className="rounded-[14px]" />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium">Email</label>
+              <label className="text-sm font-medium text-white/60">Email</label>
               <Input
                 defaultValue={session?.user?.email || ""}
                 disabled
+                className="rounded-[14px] opacity-50"
               />
             </div>
           </div>
-          <Button>Save Changes</Button>
+          <Button className="gap-2 rounded-[14px] gradient-primary btn-glow">
+            <Save className="h-4 w-4" />
+            Save Changes
+          </Button>
         </CardContent>
       </Card>
 
       {/* Appearance */}
-      <Card>
+      <Card className="animate-slide-up stagger-2">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-base">
-            <Palette className="h-4 w-4" />
+            <Palette className="h-4 w-4 text-[#2563EB]" />
             Appearance
           </CardTitle>
           <CardDescription>
@@ -85,7 +91,7 @@ export default function SettingsPage() {
           <div className="flex items-center justify-between">
             <div>
               <p className="font-medium">Theme</p>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-white/40">
                 Switch between light and dark mode.
               </p>
             </div>
@@ -95,10 +101,10 @@ export default function SettingsPage() {
       </Card>
 
       {/* Plan */}
-      <Card>
+      <Card className="animate-slide-up stagger-3">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-base">
-            <CreditCard className="h-4 w-4" />
+            <CreditCard className="h-4 w-4 text-[#10B981]" />
             Subscription Plan
           </CardTitle>
           <CardDescription>
@@ -106,26 +112,30 @@ export default function SettingsPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex items-center justify-between p-4 rounded-lg border">
+          <div className="flex items-center justify-between p-4 rounded-[14px] glass-card">
             <div>
               <div className="flex items-center gap-2">
                 <p className="font-medium">Free Plan</p>
-                <Badge variant="secondary">Current</Badge>
+                <Badge variant="secondary" className="bg-[#10B981]/15 text-[#10B981] border-[#10B981]/30">
+                  Current
+                </Badge>
               </div>
-              <p className="text-sm text-muted-foreground mt-1">
+              <p className="text-sm text-white/40 mt-1">
                 3 workspaces, 5 projects, 10 AI requests/day
               </p>
             </div>
-            <Button variant="outline">Upgrade to Pro</Button>
+            <Button variant="outline" className="rounded-[14px] border-white/10 hover:bg-white/[0.05]">
+              Upgrade to Pro
+            </Button>
           </div>
         </CardContent>
       </Card>
 
       {/* Security */}
-      <Card>
+      <Card className="animate-slide-up stagger-4">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-base">
-            <Shield className="h-4 w-4" />
+            <Shield className="h-4 w-4 text-[#F59E0B]" />
             Security
           </CardTitle>
           <CardDescription>
@@ -136,22 +146,22 @@ export default function SettingsPage() {
           <div className="flex items-center justify-between">
             <div>
               <p className="font-medium">Password</p>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-white/40">
                 Last changed 30 days ago
               </p>
             </div>
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" className="rounded-[10px] border-white/10 hover:bg-white/[0.05]">
               Change Password
             </Button>
           </div>
           <div className="flex items-center justify-between">
             <div>
               <p className="font-medium">Two-Factor Authentication</p>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-white/40">
                 Extra login security via authenticator app.
               </p>
             </div>
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" className="rounded-[10px] border-white/10 hover:bg-white/[0.05]">
               Enable 2FA
             </Button>
           </div>
@@ -159,10 +169,10 @@ export default function SettingsPage() {
       </Card>
 
       {/* Notifications */}
-      <Card>
+      <Card className="animate-slide-up stagger-5">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-base">
-            <Bell className="h-4 w-4" />
+            <Bell className="h-4 w-4 text-[#06B6D4]" />
             Notifications
           </CardTitle>
           <CardDescription>
@@ -181,11 +191,11 @@ export default function SettingsPage() {
             >
               <div>
                 <p className="text-sm font-medium">{item.label}</p>
-                <p className="text-xs text-muted-foreground">
+                <p className="text-xs text-white/40">
                   {item.description}
                 </p>
               </div>
-              <button className="h-5 w-9 rounded-full bg-primary relative transition-colors">
+              <button className="h-5 w-9 rounded-full bg-[#7C3AED] relative transition-colors hover:bg-[#6D28D9]">
                 <div className="absolute right-0.5 top-0.5 h-4 w-4 rounded-full bg-white transition-transform" />
               </button>
             </div>

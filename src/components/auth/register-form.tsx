@@ -4,7 +4,7 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Sparkles, Eye, EyeOff, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 
 export function RegisterForm() {
@@ -12,8 +12,18 @@ export function RegisterForm() {
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [showPassword, setShowPassword] = React.useState(false);
   const [error, setError] = React.useState("");
   const [loading, setLoading] = React.useState(false);
+
+  const passwordStrength = React.useMemo(() => {
+    let strength = 0;
+    if (password.length >= 8) strength++;
+    if (/[A-Z]/.test(password)) strength++;
+    if (/[0-9]/.test(password)) strength++;
+    if (/[^A-Za-z0-9]/.test(password)) strength++;
+    return strength;
+  }, [password]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,24 +50,24 @@ export function RegisterForm() {
   };
 
   return (
-    <div className="flex min-h-screen bg-[#13111c]">
+    <div className="flex min-h-screen">
       {/* Left side - Branding */}
-      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden items-center justify-center">
+      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden items-center justify-center gradient-mesh">
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/3 left-1/3 h-96 w-96 bg-[#6c5ce7]/20 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/3 right-1/3 h-96 w-96 bg-[#00b894]/10 rounded-full blur-3xl" />
+          <div className="absolute top-1/3 left-1/3 h-96 w-96 bg-[#7C3AED]/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/3 right-1/3 h-96 w-96 bg-[#10B981]/10 rounded-full blur-3xl" />
         </div>
         <div className="relative text-center px-12">
-          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-[#6c5ce7] to-[#a29bfe] shadow-2xl shadow-[#6c5ce7]/30 mx-auto mb-6">
-            <span className="text-white font-bold text-3xl">K</span>
+          <div className="flex h-20 w-20 items-center justify-center rounded-[20px] gradient-primary shadow-2xl shadow-[#7C3AED]/30 mx-auto mb-8 animate-float">
+            <span className="text-white font-bold text-4xl">K</span>
           </div>
-          <h1 className="text-4xl font-bold text-white mb-4">Kanvus</h1>
-          <p className="text-white/50 text-lg">Start managing projects today.</p>
-          <div className="mt-12 space-y-4 text-left max-w-xs mx-auto">
+          <h1 className="text-5xl font-bold text-white mb-4 tracking-tight">Kanvus</h1>
+          <p className="text-white/50 text-xl mb-12">Start managing projects today.</p>
+          <div className="space-y-4 text-left max-w-xs mx-auto">
             {["Kanban boards", "AI assistant", "Team workspaces"].map((f) => (
               <div key={f} className="flex items-center gap-3 text-white/60">
-                <div className="h-6 w-6 rounded-lg bg-[#00b894]/20 flex items-center justify-center">
-                  <div className="h-2 w-2 rounded-full bg-[#00b894]" />
+                <div className="h-6 w-6 rounded-lg bg-[#10B981]/20 flex items-center justify-center">
+                  <CheckCircle2 className="h-3 w-3 text-[#10B981]" />
                 </div>
                 <span className="text-sm">{f}</span>
               </div>
@@ -68,27 +78,26 @@ export function RegisterForm() {
 
       {/* Right side - Form */}
       <div className="flex-1 flex items-center justify-center px-6 py-12 relative">
-        {/* Ambient glow */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/3 right-1/4 h-96 w-96 bg-[#6c5ce7]/[0.04] rounded-full blur-[120px]" />
+          <div className="absolute top-1/3 right-1/4 h-96 w-96 bg-[#7C3AED]/[0.03] rounded-full blur-[120px]" />
         </div>
-        <div className="w-full max-w-md relative z-10">
+        <div className="w-full max-w-md relative z-10 animate-slide-up">
           {/* Mobile logo */}
-          <div className="lg:hidden flex items-center gap-2.5 mb-8">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[#6c5ce7] to-[#a29bfe] shadow-lg shadow-[#6c5ce7]/20">
-              <span className="text-white font-bold text-lg">K</span>
+          <div className="lg:hidden flex items-center gap-2.5 mb-10">
+            <div className="flex h-10 w-10 items-center justify-center rounded-[12px] gradient-primary shadow-lg shadow-[#7C3AED]/25">
+              <span className="text-white font-bold text-xl">K</span>
             </div>
-            <span className="text-xl font-bold tracking-tight text-white">Kanvus</span>
+            <span className="text-2xl font-bold tracking-tight text-white">Kanvus</span>
           </div>
 
-          <div className="mb-8">
-            <h2 className="text-3xl font-bold mb-2 text-white">Create account</h2>
+          <div className="mb-10">
+            <h2 className="text-3xl font-bold mb-3 tracking-tight">Create account</h2>
             <p className="text-white/40">Get started with Kanvus for free</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-5">
             {error && (
-              <div className="rounded-xl bg-[#e74c3c]/10 border border-[#e74c3c]/20 p-3.5 text-sm text-[#ff6b6b]">
+              <div className="rounded-[14px] bg-[#EF4444]/10 border border-[#EF4444]/20 p-4 text-sm text-[#EF4444] animate-shake">
                 {error}
               </div>
             )}
@@ -99,7 +108,7 @@ export function RegisterForm() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Your name"
-                className="rounded-xl glass-input border-white/10 h-11 text-white"
+                className="rounded-[16px] glass-input h-12 text-white"
                 required
               />
             </div>
@@ -111,22 +120,52 @@ export function RegisterForm() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                className="rounded-xl glass-input border-white/10 h-11 text-white"
+                className="rounded-[16px] glass-input h-12 text-white"
                 required
               />
             </div>
 
             <div className="space-y-2">
               <label className="text-sm font-medium text-white/60">Password</label>
-              <Input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-                className="rounded-xl glass-input border-white/10 h-11 text-white"
-                minLength={8}
-                required
-              />
+              <div className="relative">
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  className="rounded-[16px] glass-input h-12 text-white pr-12"
+                  minLength={8}
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 transition-colors"
+                >
+                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </button>
+              </div>
+              {/* Password strength */}
+              {password.length > 0 && (
+                <div className="flex gap-1 mt-2">
+                  {[1, 2, 3, 4].map((i) => (
+                    <div
+                      key={i}
+                      className={`h-1 flex-1 rounded-full transition-colors ${
+                        i <= passwordStrength
+                          ? passwordStrength <= 1
+                            ? "bg-[#EF4444]"
+                            : passwordStrength <= 2
+                            ? "bg-[#F59E0B]"
+                            : passwordStrength <= 3
+                            ? "bg-[#10B981]"
+                            : "bg-[#06B6D4]"
+                          : "bg-white/10"
+                      }`}
+                    />
+                  ))}
+                </div>
+              )}
               <p className="text-xs text-white/25">
                 Must be at least 8 characters
               </p>
@@ -134,17 +173,26 @@ export function RegisterForm() {
 
             <Button
               type="submit"
-              className="w-full rounded-xl bg-gradient-to-r from-[#6c5ce7] to-[#a29bfe] hover:from-[#5b4bd5] hover:to-[#9289f2] border-0 shadow-lg shadow-[#6c5ce7]/20 h-11"
+              className="w-full rounded-[14px] gradient-primary btn-glow border-0 shadow-lg shadow-[#7C3AED]/20 h-12"
               disabled={loading}
             >
-              {loading ? "Creating account..." : "Create account"}
-              {!loading && <ArrowRight className="h-4 w-4 ml-2" />}
+              {loading ? (
+                <div className="flex items-center gap-2">
+                  <div className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  Creating account...
+                </div>
+              ) : (
+                <>
+                  Create account
+                  <ArrowRight className="h-4 w-4 ml-2" />
+                </>
+              )}
             </Button>
           </form>
 
           <p className="text-center text-sm text-white/30 mt-6">
             Already have an account?{" "}
-            <Link href="/login" className="text-[#a29bfe] font-medium hover:underline">
+            <Link href="/login" className="text-[#7C3AED] font-medium hover:text-[#6D28D9] transition-colors">
               Sign in
             </Link>
           </p>

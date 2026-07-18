@@ -95,30 +95,32 @@ export function KanbanBoard({ tasks, onTaskMove, onTaskClick }: KanbanBoardProps
           const columnTasksList = columnTasks[status] || [];
 
           return (
-            <div key={status} className="flex flex-col min-w-[280px] w-[280px]">
+            <div key={status} className="flex flex-col min-w-[300px] w-[300px]">
+              {/* Column Header */}
               <div className="flex items-center gap-2 mb-3 px-1">
                 <div
                   className="h-2.5 w-2.5 rounded-full"
                   style={{ backgroundColor: config.color }}
                 />
-                <h3 className="text-sm font-semibold text-foreground">
+                <h3 className="text-sm font-semibold text-white/80">
                   {config.label}
                 </h3>
-                <span className="text-xs text-muted-foreground bg-muted rounded-full px-2 py-0.5">
+                <span className="text-xs text-white/30 bg-white/[0.06] rounded-full px-2 py-0.5 font-medium">
                   {columnTasksList.length}
                 </span>
               </div>
 
+              {/* Column Content */}
               <Droppable droppableId={status}>
                 {(provided, snapshot) => (
                   <div
                     ref={provided.innerRef}
                     {...provided.droppableProps}
                     className={cn(
-                      "flex-1 space-y-2 rounded-xl p-2 transition-colors min-h-[200px]",
+                      "flex-1 space-y-2 rounded-[16px] p-2 transition-all duration-200 min-h-[200px]",
                       snapshot.isDraggingOver
-                        ? "bg-primary/5 border-2 border-dashed border-primary/30"
-                        : "bg-muted/50"
+                        ? "bg-[#7C3AED]/5 border-2 border-dashed border-[#7C3AED]/30"
+                        : "bg-white/[0.02]"
                     )}
                   >
                     {columnTasksList.map((task, index) => (

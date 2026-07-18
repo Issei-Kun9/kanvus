@@ -8,7 +8,7 @@ import { CreateTaskModal } from "@/components/tasks/create-task-modal";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Plus } from "lucide-react";
+import { ArrowLeft, Plus, Search, Sparkles } from "lucide-react";
 import Link from "next/link";
 import type { Task, TaskStatus, TaskPriority } from "@/types";
 
@@ -178,8 +178,8 @@ export default function ProjectDetailPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-24">
-        <div className="flex flex-col items-center gap-2 text-muted-foreground">
-          <div className="h-8 w-8 rounded-full border-2 border-primary border-t-transparent animate-spin" />
+        <div className="flex flex-col items-center gap-3 text-white/30">
+          <div className="h-10 w-10 rounded-full border-2 border-[#7C3AED] border-t-transparent animate-spin" />
           <p className="text-sm">Loading project...</p>
         </div>
       </div>
@@ -191,15 +191,15 @@ export default function ProjectDetailPage() {
   return (
     <div className="space-y-4 h-full flex flex-col">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between animate-slide-up">
         <div className="flex items-center gap-3">
           <Link href="/projects">
-            <Button variant="ghost" size="icon">
+            <Button variant="ghost" size="icon" className="rounded-[10px]">
               <ArrowLeft className="h-5 w-5" />
             </Button>
           </Link>
           <div
-            className="flex h-10 w-10 items-center justify-center rounded-lg"
+            className="flex h-10 w-10 items-center justify-center rounded-[12px]"
             style={{ backgroundColor: project.color + "20" }}
           >
             <div
@@ -208,27 +208,27 @@ export default function ProjectDetailPage() {
             />
           </div>
           <div>
-            <h1 className="text-xl font-bold">{project.name}</h1>
+            <h1 className="text-xl font-bold tracking-tight">{project.name}</h1>
             {project.description && (
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-white/40">
                 {project.description}
               </p>
             )}
           </div>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/30" />
             <Input
               placeholder="Filter tasks..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-48 h-9"
+              className="w-48 h-10 pl-9 rounded-[14px]"
             />
           </div>
           <Button
             onClick={() => setShowCreateTask(true)}
-            className="gap-2"
-            size="sm"
+            className="gap-2 rounded-[14px] gradient-primary btn-glow"
           >
             <Plus className="h-4 w-4" />
             Add Task
@@ -238,11 +238,12 @@ export default function ProjectDetailPage() {
 
       {/* Labels */}
       {project.labels.length > 0 && (
-        <div className="flex items-center gap-2 flex-wrap">
+        <div className="flex items-center gap-2 flex-wrap animate-slide-up stagger-1">
           {project.labels.map((label) => (
             <Badge
               key={label.id}
               variant="outline"
+              className="rounded-full"
               style={{
                 borderColor: label.color + "40",
                 color: label.color,
@@ -255,7 +256,7 @@ export default function ProjectDetailPage() {
       )}
 
       {/* Kanban Board */}
-      <div className="flex-1 overflow-hidden">
+      <div className="flex-1 overflow-hidden animate-slide-up stagger-2">
         <KanbanBoard
           tasks={filteredTasks}
           onTaskMove={handleTaskMove}

@@ -4,8 +4,7 @@ import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar } from "@/components/ui/avatar";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Sparkles, Send, Bot } from "lucide-react";
+import { Sparkles, Send, Bot, Copy, RefreshCw, ThumbsUp, ThumbsDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { AIChatMessage } from "@/types";
 
@@ -71,39 +70,52 @@ export function ChatAssistant({ workspaceId }: ChatAssistantProps) {
   };
 
   const suggestions = [
-    "What tasks should I focus on today?",
-    "Summarize my project progress",
-    "Help me prioritize my backlog",
-    "What's blocking my team?",
+    "Prioritize my tasks",
+    "Analyze workload",
+    "Suggest next sprint",
+    "Generate roadmap",
   ];
 
   return (
-    <Card className="h-[calc(100vh-12rem)] flex flex-col">
-      <CardHeader className="border-b">
-        <CardTitle className="flex items-center gap-2 text-base">
-          <Sparkles className="h-5 w-5 text-primary" />
-          AI Assistant
-        </CardTitle>
-      </CardHeader>
+    <div className="h-[calc(100vh-12rem)] flex flex-col glass-card rounded-[22px] overflow-hidden">
+      {/* Header */}
+      <div className="flex items-center gap-3 p-4 border-b border-white/[0.06]">
+        <div className="flex h-10 w-10 items-center justify-center rounded-[12px] gradient-ai">
+          <Sparkles className="h-5 w-5 text-white" />
+        </div>
+        <div>
+          <h2 className="font-semibold text-white">AI Assistant</h2>
+          <p className="text-xs text-white/40">Powered by GPT-4</p>
+        </div>
+        <div className="ml-auto flex items-center gap-2">
+          <div className="h-2 w-2 rounded-full bg-[#10B981] animate-pulse" />
+          <span className="text-xs text-white/40">Online</span>
+        </div>
+      </div>
 
-      <CardContent className="flex-1 overflow-y-auto p-4 space-y-4">
+      {/* Messages */}
+      <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.length === 0 && (
-          <div className="flex flex-col items-center justify-center h-full text-center">
-            <div className="rounded-full bg-primary/10 p-4 mb-4">
-              <Sparkles className="h-8 w-8 text-primary" />
+          <div className="flex flex-col items-center justify-center h-full text-center animate-fade-in">
+            <div className="flex h-16 w-16 items-center justify-center rounded-[20px] gradient-ai mb-6 animate-float">
+              <Sparkles className="h-8 w-8 text-white" />
             </div>
-            <h3 className="font-semibold mb-1">Kanvus Assistant</h3>
-            <p className="text-sm text-muted-foreground mb-6 max-w-sm">
+            <h3 className="text-xl font-semibold mb-2">Kanvus Assistant</h3>
+            <p className="text-sm text-white/40 mb-8 max-w-sm">
               Ask me anything about your projects and tasks. I can help you
               prioritize, analyze progress, and suggest next steps.
             </p>
-            <div className="grid grid-cols-2 gap-2 w-full max-w-md">
-              {suggestions.map((s) => (
+            <div className="grid grid-cols-2 gap-3 w-full max-w-md">
+              {suggestions.map((s, i) => (
                 <button
                   key={s}
                   onClick={() => setInput(s)}
-                  className="rounded-lg border p-3 text-left text-sm hover:bg-muted transition-colors"
+                  className={cn(
+                    "glass-card rounded-[14px] p-4 text-left text-sm text-white/60 hover:text-white transition-all hover-lift",
+                    `animate-slide-up stagger-${i + 1}`
+                  )}
                 >
+                  <Sparkles className="h-4 w-4 text-[#06B6D4] mb-2" />
                   {s}
                 </button>
               ))}
@@ -115,50 +127,53 @@ export function ChatAssistant({ workspaceId }: ChatAssistantProps) {
           <div
             key={i}
             className={cn(
-              "flex gap-3",
+              "flex gap-3 animate-slide-up",
               msg.role === "user" ? "justify-end" : "justify-start"
             )}
           >
             {msg.role === "assistant" && (
-              <Avatar fallback="AI" size="sm" className="bg-primary/10">
-                <Bot className="h-4 w-4 text-primary" />
-              </Avatar>
+              <div className="flex h-8 w-8 items-center justify-center rounded-[10px] gradient-ai shrink-0">
+                <Bot className="h-4 w-4 text-white" />
+              </div>
             )}
             <div
               className={cn(
-                "rounded-xl px-4 py-2 max-w-[80%] text-sm",
+                "rounded-[16px] px-4 py-3 max-w-[80%] text-sm",
                 msg.role === "user"
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-muted"
+                  ? "gradient-primary text-white"
+                  : "glass-card"
               )}
             >
               <p className="whitespace-pre-wrap">{msg.content}</p>
             </div>
             {msg.role === "user" && (
-              <Avatar fallback="U" size="sm" />
+              <div className="flex h-8 w-8 items-center justify-center rounded-[10px] bg-white/[0.08] shrink-0">
+                <span className="text-xs font-medium text-white/60">U</span>
+              </div>
             )}
           </div>
         ))}
 
         {loading && (
-          <div className="flex gap-3">
-            <Avatar fallback="AI" size="sm" className="bg-primary/10">
-              <Bot className="h-4 w-4 text-primary" />
-            </Avatar>
-            <div className="rounded-xl bg-muted px-4 py-3">
-              <div className="flex gap-1">
-                <div className="h-2 w-2 rounded-full bg-muted-foreground/40 animate-bounce [animation-delay:-0.3s]" />
-                <div className="h-2 w-2 rounded-full bg-muted-foreground/40 animate-bounce [animation-delay:-0.15s]" />
-                <div className="h-2 w-2 rounded-full bg-muted-foreground/40 animate-bounce" />
+          <div className="flex gap-3 animate-slide-up">
+            <div className="flex h-8 w-8 items-center justify-center rounded-[10px] gradient-ai shrink-0">
+              <Bot className="h-4 w-4 text-white" />
+            </div>
+            <div className="glass-card rounded-[16px] px-4 py-3">
+              <div className="flex gap-1.5">
+                <div className="h-2 w-2 rounded-full bg-[#06B6D4] animate-bounce [animation-delay:-0.3s]" />
+                <div className="h-2 w-2 rounded-full bg-[#06B6D4] animate-bounce [animation-delay:-0.15s]" />
+                <div className="h-2 w-2 rounded-full bg-[#06B6D4] animate-bounce" />
               </div>
             </div>
           </div>
         )}
 
         <div ref={messagesEndRef} />
-      </CardContent>
+      </div>
 
-      <div className="border-t p-4">
+      {/* Input */}
+      <div className="border-t border-white/[0.06] p-4">
         <div className="flex gap-2">
           <Input
             value={input}
@@ -166,16 +181,18 @@ export function ChatAssistant({ workspaceId }: ChatAssistantProps) {
             placeholder="Ask about your projects..."
             onKeyDown={(e) => e.key === "Enter" && sendMessage()}
             disabled={loading}
+            className="rounded-[14px] glass-input h-12"
           />
           <Button
             size="icon"
             onClick={sendMessage}
             disabled={!input.trim() || loading}
+            className="rounded-[14px] gradient-ai h-12 w-12 btn-glow"
           >
             <Send className="h-4 w-4" />
           </Button>
         </div>
       </div>
-    </Card>
+    </div>
   );
 }

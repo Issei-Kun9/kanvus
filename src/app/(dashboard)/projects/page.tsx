@@ -4,7 +4,7 @@ import * as React from "react";
 import { ProjectList } from "@/components/projects/project-list";
 import { CreateProjectModal } from "@/components/projects/create-project-modal";
 import { Button } from "@/components/ui/button";
-import { Plus, Search, FolderKanban } from "lucide-react";
+import { Plus, Search, FolderKanban, Sparkles } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useWorkspace } from "@/hooks/use-workspace";
 
@@ -77,9 +77,9 @@ export default function ProjectsPage() {
 
   if (wsLoading || !workspaceId) {
     return (
-      <div className="flex items-center justify-center py-12">
-        <div className="flex flex-col items-center gap-2 text-muted-foreground">
-          <FolderKanban className="h-8 w-8 animate-pulse" />
+      <div className="flex items-center justify-center py-24">
+        <div className="flex flex-col items-center gap-3 text-white/30">
+          <div className="h-10 w-10 rounded-full border-2 border-[#7C3AED] border-t-transparent animate-spin" />
           <p className="text-sm">Loading workspace...</p>
         </div>
       </div>
@@ -88,43 +88,47 @@ export default function ProjectsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      {/* Header */}
+      <div className="flex items-center justify-between animate-slide-up">
         <div>
-          <h1 className="text-2xl font-bold">Projects</h1>
-          <p className="text-muted-foreground">
+          <h1 className="text-2xl font-bold tracking-tight">Projects</h1>
+          <p className="text-white/40">
             Manage and track all your projects.
           </p>
         </div>
-        <Button onClick={() => setShowCreate(true)} className="gap-2">
+        <Button onClick={() => setShowCreate(true)} className="gap-2 rounded-[14px] gradient-primary btn-glow">
           <Plus className="h-4 w-4" />
           New Project
         </Button>
       </div>
 
-      <div className="flex items-center gap-2">
+      {/* Search */}
+      <div className="flex items-center gap-2 animate-slide-up stagger-1">
         <div className="relative flex-1 max-w-sm">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/30" />
           <Input
             placeholder="Search projects..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="pl-9"
+            className="pl-9 rounded-[14px]"
           />
         </div>
       </div>
 
+      {/* Projects */}
       {loading ? (
-        <div className="flex items-center justify-center py-12">
-          <div className="flex flex-col items-center gap-2 text-muted-foreground">
-            <FolderKanban className="h-8 w-8 animate-pulse" />
-            <p className="text-sm">Loading projects...</p>
-          </div>
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="h-40 skeleton rounded-[22px]" />
+          ))}
         </div>
       ) : (
-        <ProjectList
-          projects={filtered}
-          onCreateClick={() => setShowCreate(true)}
-        />
+        <div className="animate-slide-up stagger-2">
+          <ProjectList
+            projects={filtered}
+            onCreateClick={() => setShowCreate(true)}
+          />
+        </div>
       )}
 
       <CreateProjectModal

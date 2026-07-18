@@ -12,6 +12,9 @@ import {
   ArrowRight,
   TrendingUp,
   Users,
+  Plus,
+  Sparkles,
+  Clock,
 } from "lucide-react";
 import { useWorkspace } from "@/hooks/use-workspace";
 import dynamic from "next/dynamic";
@@ -25,7 +28,7 @@ const TaskPieChart = dynamic(
   { ssr: false }
 );
 
-const PIE_COLORS = ["#6c5ce7", "#00b894", "#e74c3c", "#fdcb6e", "#a29bfe"];
+const PIE_COLORS = ["#7C3AED", "#10B981", "#EF4444", "#F59E0B", "#2563EB"];
 
 interface Task {
   status: string;
@@ -137,15 +140,15 @@ export default function DashboardPage() {
   if (loading || wsLoading) {
     return (
       <div className="space-y-6">
-        <div className="h-8 w-64 bg-muted animate-pulse rounded" />
+        <div className="h-8 w-64 skeleton" />
         <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
           {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="h-24 bg-muted animate-pulse rounded-xl" />
+            <div key={i} className="h-28 skeleton rounded-[22px]" />
           ))}
         </div>
         <div className="grid gap-6 lg:grid-cols-3">
-          <div className="lg:col-span-2 h-80 bg-muted animate-pulse rounded-xl" />
-          <div className="h-80 bg-muted animate-pulse rounded-xl" />
+          <div className="lg:col-span-2 h-80 skeleton rounded-[22px]" />
+          <div className="h-80 skeleton rounded-[22px]" />
         </div>
       </div>
     );
@@ -153,23 +156,25 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      {/* Header */}
+      <div className="flex items-center justify-between animate-slide-up">
         <div>
-          <h1 className="text-2xl font-bold">
+          <h1 className="text-2xl font-bold tracking-tight">
             Welcome back, {session?.user?.name?.split(" ")[0] || "there"}
           </h1>
-          <p className="text-muted-foreground">
+          <p className="text-white/40">
             Here&apos;s what&apos;s happening with your projects today.
           </p>
         </div>
         <Link href="/projects">
-          <Button className="gap-2">
-            View Projects
-            <ArrowRight className="h-4 w-4" />
+          <Button className="gap-2 rounded-[14px] gradient-primary btn-glow">
+            <Plus className="h-4 w-4" />
+            New Project
           </Button>
         </Link>
       </div>
 
+      {/* Stats */}
       <StatsCards
         totalTasks={stats.totalTasks}
         completedTasks={stats.completedTasks}
@@ -177,11 +182,12 @@ export default function DashboardPage() {
         overdueTasks={stats.overdueTasks}
       />
 
-      <div className="grid gap-6 lg:grid-cols-3">
+      {/* Charts */}
+      <div className="grid gap-6 lg:grid-cols-3 animate-slide-up stagger-3">
         <Card className="lg:col-span-2">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-base">
-              <TrendingUp className="h-4 w-4" />
+              <TrendingUp className="h-4 w-4 text-[#7C3AED]" />
               Weekly Activity
             </CardTitle>
           </CardHeader>
@@ -202,60 +208,63 @@ export default function DashboardPage() {
                 <div className="h-[200px]">
                   <TaskPieChart data={taskDistribution} />
                 </div>
-                <div className="grid grid-cols-2 gap-2 mt-2">
+                <div className="grid grid-cols-2 gap-2 mt-4">
                   {taskDistribution.map((item, i) => (
                     <div key={item.name} className="flex items-center gap-2 text-xs">
                       <div className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: PIE_COLORS[i] }} />
-                      <span className="text-muted-foreground">{item.name}</span>
+                      <span className="text-white/40">{item.name}</span>
                     </div>
                   ))}
                 </div>
               </>
             ) : (
-              <div className="flex items-center justify-center h-[200px] text-muted-foreground text-sm">
-                No tasks yet
+              <div className="flex flex-col items-center justify-center h-[200px] text-white/30">
+                <Sparkles className="h-8 w-8 mb-2 opacity-50" />
+                <p className="text-sm">No tasks yet</p>
               </div>
             )}
           </CardContent>
         </Card>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      {/* Projects & Team */}
+      <div className="grid gap-6 lg:grid-cols-2 animate-slide-up stagger-5">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle className="text-base">Recent Projects</CardTitle>
             <Link href="/projects">
-              <Button variant="ghost" size="sm" className="gap-1">
+              <Button variant="ghost" size="sm" className="gap-1 text-white/40 hover:text-white/70">
                 View all <ArrowRight className="h-3 w-3" />
               </Button>
             </Link>
           </CardHeader>
           <CardContent>
             {recentProjects.length === 0 ? (
-              <div className="text-center py-8 text-muted-foreground">
-                <FolderKanban className="h-8 w-8 mx-auto mb-2 opacity-50" />
+              <div className="flex flex-col items-center justify-center py-8 text-white/30">
+                <FolderKanban className="h-8 w-8 mb-2 opacity-50" />
                 <p className="text-sm">No projects yet</p>
               </div>
             ) : (
-              <div className="space-y-3">
+              <div className="space-y-2">
                 {recentProjects.map((project) => (
                   <Link
                     key={project.id}
                     href={`/projects/${project.id}`}
-                    className="flex items-center gap-3 rounded-lg p-2 hover:bg-muted transition-colors"
+                    className="flex items-center gap-3 rounded-[14px] p-3 hover:bg-white/[0.04] transition-all duration-200 group"
                   >
                     <div
-                      className="h-8 w-8 rounded-lg flex items-center justify-center"
+                      className="h-10 w-10 rounded-[12px] flex items-center justify-center transition-transform group-hover:scale-110"
                       style={{ backgroundColor: project.color + "20" }}
                     >
-                      <FolderKanban className="h-4 w-4" style={{ color: project.color }} />
+                      <FolderKanban className="h-5 w-5" style={{ color: project.color }} />
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium truncate">{project.name}</p>
-                      <p className="text-xs text-muted-foreground">
+                      <p className="text-xs text-white/40">
                         {project.taskCount} tasks
                       </p>
                     </div>
+                    <ArrowRight className="h-4 w-4 text-white/20 group-hover:text-white/40 transition-colors" />
                   </Link>
                 ))}
               </div>
@@ -266,25 +275,26 @@ export default function DashboardPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle className="flex items-center gap-2 text-base">
-              <Users className="h-4 w-4" />
-              Team
+              <Users className="h-4 w-4 text-[#7C3AED]" />
+              Team Members
             </CardTitle>
           </CardHeader>
           <CardContent>
             {teamMembers.length === 0 ? (
-              <div className="text-center py-8 text-muted-foreground">
-                <Users className="h-8 w-8 mx-auto mb-2 opacity-50" />
+              <div className="flex flex-col items-center justify-center py-8 text-white/30">
+                <Users className="h-8 w-8 mb-2 opacity-50" />
                 <p className="text-sm">No team members</p>
               </div>
             ) : (
-              <div className="space-y-3">
+              <div className="space-y-2">
                 {teamMembers.map((member) => (
-                  <div key={member.id} className="flex items-center gap-3">
+                  <div key={member.id} className="flex items-center gap-3 rounded-[14px] p-3 hover:bg-white/[0.04] transition-all duration-200">
                     <Avatar fallback={member.name || "U"} size="sm" src={member.image} />
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium">{member.name}</p>
-                      <p className="text-xs text-muted-foreground">{member.role}</p>
+                      <p className="text-xs text-white/40 capitalize">{member.role}</p>
                     </div>
+                    <div className="h-2 w-2 rounded-full bg-[#10B981] animate-pulse" />
                   </div>
                 ))}
               </div>
@@ -292,6 +302,22 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Upcoming Deadlines */}
+      <Card className="animate-slide-up stagger-6">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-base">
+            <Clock className="h-4 w-4 text-[#F59E0B]" />
+            Upcoming Deadlines
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="text-center py-6 text-white/30">
+            <Clock className="h-8 w-8 mx-auto mb-2 opacity-50" />
+            <p className="text-sm">No upcoming deadlines</p>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }

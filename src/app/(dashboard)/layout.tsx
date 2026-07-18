@@ -15,17 +15,14 @@ export default function DashboardLayout({
 
   return (
     <SessionProvider>
-      <div className="flex h-screen overflow-hidden bg-[#13111c]">
-        {/* Ambient background glows */}
-        <div className="fixed inset-0 pointer-events-none">
-          <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-[#6c5ce7]/[0.04] rounded-full blur-[120px]" />
-          <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-[#fdcb6e]/[0.02] rounded-full blur-[120px]" />
-        </div>
+      <div className="flex h-screen overflow-hidden">
+        {/* Ambient background */}
+        <div className="fixed inset-0 pointer-events-none gradient-mesh" />
 
         {/* Mobile overlay */}
         {mobileMenuOpen && (
           <div
-            className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden"
+            className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden animate-fade-in"
             onClick={() => setMobileMenuOpen(false)}
           />
         )}

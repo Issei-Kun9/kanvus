@@ -1,7 +1,7 @@
 "use client";
 
 import { ProjectCard } from "./project-card";
-import { FolderKanban } from "lucide-react";
+import { FolderKanban, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Project } from "@/types";
 
@@ -13,16 +13,19 @@ interface ProjectListProps {
 export function ProjectList({ projects, onCreateClick }: ProjectListProps) {
   if (projects.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center rounded-xl border border-dashed p-12 text-center">
-        <div className="rounded-full bg-muted p-4 mb-4">
-          <FolderKanban className="h-8 w-8 text-muted-foreground" />
+      <div className="flex flex-col items-center justify-center glass-card rounded-[22px] p-12 text-center">
+        <div className="flex h-16 w-16 items-center justify-center rounded-[16px] bg-white/[0.05] mb-4">
+          <FolderKanban className="h-8 w-8 text-white/30" />
         </div>
-        <h3 className="text-lg font-semibold mb-1">No projects yet</h3>
-        <p className="text-sm text-muted-foreground mb-4">
+        <h3 className="text-lg font-semibold mb-2">No projects yet</h3>
+        <p className="text-sm text-white/40 mb-6">
           Create your first project to get started.
         </p>
         {onCreateClick && (
-          <Button onClick={onCreateClick}>Create Project</Button>
+          <Button onClick={onCreateClick} className="gap-2 rounded-[14px] gradient-primary btn-glow">
+            <Plus className="h-4 w-4" />
+            Create Project
+          </Button>
         )}
       </div>
     );
@@ -30,8 +33,10 @@ export function ProjectList({ projects, onCreateClick }: ProjectListProps) {
 
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {projects.map((project) => (
-        <ProjectCard key={project.id} project={project} />
+      {projects.map((project, i) => (
+        <div key={project.id} className={`animate-slide-up stagger-${Math.min(i + 1, 8)}`}>
+          <ProjectCard project={project} />
+        </div>
       ))}
     </div>
   );
