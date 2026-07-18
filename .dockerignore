@@ -1,0 +1,15 @@
+.env
+.env.local
+.env*.local
+node_modules/
+.next/
+out/
+build/
+dist/
+coverage/
+*.log
+.DS_Store
+*.pem
+*.tsbuildinfo
+.vercel
+docker-compose.override.yml
