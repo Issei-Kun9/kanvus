@@ -16,21 +16,16 @@ import {
 import { useWorkspace } from "@/hooks/use-workspace";
 import dynamic from "next/dynamic";
 
-const BarChart = dynamic(
-  () => import("recharts").then((m) => m.BarChart),
+const ActivityBarChart = dynamic(
+  () => import("@/components/dashboard/charts").then((m) => m.ActivityBarChart),
   { ssr: false }
 );
-const Bar = dynamic(() => import("recharts").then((m) => m.Bar), { ssr: false });
-const XAxis = dynamic(() => import("recharts").then((m) => m.XAxis), { ssr: false });
-const YAxis = dynamic(() => import("recharts").then((m) => m.YAxis), { ssr: false });
-const CartesianGrid = dynamic(() => import("recharts").then((m) => m.CartesianGrid), { ssr: false });
-const Tooltip = dynamic(() => import("recharts").then((m) => m.Tooltip), { ssr: false });
-const ResponsiveContainer = dynamic(() => import("recharts").then((m) => m.ResponsiveContainer), { ssr: false });
-const PieChart = dynamic(() => import("recharts").then((m) => m.PieChart), { ssr: false });
-const Pie = dynamic(() => import("recharts").then((m) => m.Pie), { ssr: false });
-const Cell = dynamic(() => import("recharts").then((m) => m.Cell), { ssr: false });
+const TaskPieChart = dynamic(
+  () => import("@/components/dashboard/charts").then((m) => m.TaskPieChart),
+  { ssr: false }
+);
 
-const COLORS = ["#6366f1", "#22c55e", "#eab308", "#ef4444", "#a855f7"];
+const PIE_COLORS = ["#6c5ce7", "#00b894", "#e74c3c", "#fdcb6e", "#a29bfe"];
 
 interface Task {
   status: string;
@@ -192,15 +187,7 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
             <div className="h-[280px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={weeklyData}>
-                  <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
-                  <XAxis dataKey="day" fontSize={12} />
-                  <YAxis fontSize={12} allowDecimals={false} />
-                  <Tooltip />
-                  <Bar dataKey="tasks" fill="#6366f1" radius={[4, 4, 0, 0]} />
-                </BarChart>
-              </ResponsiveContainer>
+              <ActivityBarChart data={weeklyData} />
             </div>
           </CardContent>
         </Card>
@@ -213,29 +200,12 @@ export default function DashboardPage() {
             {hasChartData ? (
               <>
                 <div className="h-[200px]">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie
-                        data={taskDistribution}
-                        cx="50%"
-                        cy="50%"
-                        innerRadius={50}
-                        outerRadius={80}
-                        paddingAngle={3}
-                        dataKey="value"
-                      >
-                        {taskDistribution.map((_, index) => (
-                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                        ))}
-                      </Pie>
-                      <Tooltip />
-                    </PieChart>
-                  </ResponsiveContainer>
+                  <TaskPieChart data={taskDistribution} />
                 </div>
                 <div className="grid grid-cols-2 gap-2 mt-2">
                   {taskDistribution.map((item, i) => (
                     <div key={item.name} className="flex items-center gap-2 text-xs">
-                      <div className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: COLORS[i] }} />
+                      <div className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: PIE_COLORS[i] }} />
                       <span className="text-muted-foreground">{item.name}</span>
                     </div>
                   ))}
