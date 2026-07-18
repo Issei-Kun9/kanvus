@@ -41,26 +41,26 @@ export function LoginForm() {
       {/* Left side - Branding */}
       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden items-center justify-center gradient-mesh">
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/4 left-1/4 h-96 w-96 bg-[#7C3AED]/20 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 right-1/4 h-96 w-96 bg-[#06B6D4]/10 rounded-full blur-3xl" />
+          <div className="absolute top-1/4 left-1/4 h-96 w-96 bg-[#00C896]/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/4 right-1/4 h-96 w-96 bg-[#7DD3FC]/10 rounded-full blur-3xl" />
         </div>
         <div className="relative text-center px-12">
-          <div className="flex h-20 w-20 items-center justify-center rounded-[20px] gradient-primary shadow-2xl shadow-[#7C3AED]/30 mx-auto mb-8 animate-float">
+          <div className="flex h-20 w-20 items-center justify-center rounded-[20px] gradient-primary shadow-2xl shadow-[#00C896]/30 mx-auto mb-8 animate-float">
             <span className="text-white font-bold text-4xl">K</span>
           </div>
           <h1 className="text-5xl font-bold text-white mb-4 tracking-tight">Kanvus</h1>
           <p className="text-white/50 text-xl mb-12">Project management that actually works.</p>
           <div className="flex items-center justify-center gap-8 text-white/40 text-sm">
             <div className="flex items-center gap-2">
-              <Sparkles className="h-4 w-4 text-[#06B6D4]" />
+              <Sparkles className="h-4 w-4 text-[#7DD3FC]" />
               AI-powered
             </div>
             <div className="flex items-center gap-2">
-              <div className="h-2 w-2 rounded-full bg-[#10B981] animate-pulse" />
+              <div className="h-2 w-2 rounded-full bg-[#22C55E] animate-pulse" />
               Real-time
             </div>
             <div className="flex items-center gap-2">
-              <Shield className="h-4 w-4 text-[#7C3AED]" />
+              <Shield className="h-4 w-4 text-[#00C896]" />
               Secure
             </div>
           </div>
@@ -70,12 +70,12 @@ export function LoginForm() {
       {/* Right side - Form */}
       <div className="flex-1 flex items-center justify-center px-6 py-12 relative">
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/3 right-1/4 h-96 w-96 bg-[#7C3AED]/[0.03] rounded-full blur-[120px]" />
+          <div className="absolute top-1/3 right-1/4 h-96 w-96 bg-[#00C896]/[0.03] rounded-full blur-[120px]" />
         </div>
         <div className="w-full max-w-md relative z-10 animate-slide-up">
           {/* Mobile logo */}
           <div className="lg:hidden flex items-center gap-2.5 mb-10">
-            <div className="flex h-10 w-10 items-center justify-center rounded-[12px] gradient-primary shadow-lg shadow-[#7C3AED]/25 overflow-hidden">
+            <div className="flex h-10 w-10 items-center justify-center rounded-[12px] gradient-primary shadow-lg shadow-[#00C896]/25 overflow-hidden">
               <svg viewBox="0 0 32 32" className="w-7 h-7" fill="none">
                 <g stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="10" y1="6" x2="10" y2="26"/>
@@ -120,7 +120,7 @@ export function LoginForm() {
                 <span className="w-full border-t border-white/[0.06]" />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-[#09090B] px-4 text-white/30 tracking-wider">or continue with email</span>
+                <span className="bg-[#060606] px-4 text-white/30 tracking-wider">or continue with email</span>
               </div>
             </div>
 
@@ -169,14 +169,14 @@ export function LoginForm() {
                   <input type="checkbox" className="rounded border-white/20 bg-white/5" />
                   <span className="text-sm text-white/40">Remember me</span>
                 </label>
-                <a href="#" className="text-sm text-[#7C3AED] hover:text-[#6D28D9] transition-colors">
+                <a href="#" className="text-sm text-[#00C896] hover:text-[#00A87D] transition-colors">
                   Forgot password?
                 </a>
               </div>
 
               <Button
                 type="submit"
-                className="w-full rounded-[14px] gradient-primary btn-glow border-0 shadow-lg shadow-[#7C3AED]/20 h-12"
+                className="w-full rounded-[14px] gradient-primary btn-glow border-0 shadow-lg shadow-[#00C896]/20 h-12"
                 disabled={loading}
               >
                 {loading ? (
@@ -195,7 +195,7 @@ export function LoginForm() {
 
             <p className="text-center text-sm text-white/30 pt-4">
               Don&apos;t have an account?{" "}
-              <Link href="/register" className="text-[#7C3AED] font-medium hover:text-[#6D28D9] transition-colors">
+              <Link href="/register" className="text-[#00C896] font-medium hover:text-[#00A87D] transition-colors">
                 Sign up
               </Link>
             </p>

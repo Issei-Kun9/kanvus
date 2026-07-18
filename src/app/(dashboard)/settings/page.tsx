@@ -34,7 +34,7 @@ export default function SettingsPage() {
       <Card className="animate-slide-up stagger-1">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-base">
-            <User className="h-4 w-4 text-[#7C3AED]" />
+            <User className="h-4 w-4 text-[#00C896]" />
             Profile
           </CardTitle>
           <CardDescription>
@@ -80,7 +80,7 @@ export default function SettingsPage() {
       <Card className="animate-slide-up stagger-2">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-base">
-            <Palette className="h-4 w-4 text-[#2563EB]" />
+            <Palette className="h-4 w-4 text-[#14B8A6]" />
             Appearance
           </CardTitle>
           <CardDescription>
@@ -104,7 +104,7 @@ export default function SettingsPage() {
       <Card className="animate-slide-up stagger-3">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-base">
-            <CreditCard className="h-4 w-4 text-[#10B981]" />
+            <CreditCard className="h-4 w-4 text-[#22C55E]" />
             Subscription Plan
           </CardTitle>
           <CardDescription>
@@ -116,7 +116,7 @@ export default function SettingsPage() {
             <div>
               <div className="flex items-center gap-2">
                 <p className="font-medium">Free Plan</p>
-                <Badge variant="secondary" className="bg-[#10B981]/15 text-[#10B981] border-[#10B981]/30">
+                <Badge variant="secondary" className="bg-[#22C55E]/15 text-[#22C55E] border-[#22C55E]/30">
                   Current
                 </Badge>
               </div>
@@ -135,7 +135,7 @@ export default function SettingsPage() {
       <Card className="animate-slide-up stagger-4">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-base">
-            <Shield className="h-4 w-4 text-[#F59E0B]" />
+            <Shield className="h-4 w-4 text-[#FBBF24]" />
             Security
           </CardTitle>
           <CardDescription>
@@ -172,7 +172,7 @@ export default function SettingsPage() {
       <Card className="animate-slide-up stagger-5">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-base">
-            <Bell className="h-4 w-4 text-[#06B6D4]" />
+            <Bell className="h-4 w-4 text-[#7DD3FC]" />
             Notifications
           </CardTitle>
           <CardDescription>
@@ -195,7 +195,7 @@ export default function SettingsPage() {
                   {item.description}
                 </p>
               </div>
-              <button className="h-5 w-9 rounded-full bg-[#7C3AED] relative transition-colors hover:bg-[#6D28D9]">
+              <button className="h-5 w-9 rounded-full bg-[#00C896] relative transition-colors hover:bg-[#00A87D]">
                 <div className="absolute right-0.5 top-0.5 h-4 w-4 rounded-full bg-white transition-transform" />
               </button>
             </div>

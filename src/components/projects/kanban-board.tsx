@@ -119,7 +119,7 @@ export function KanbanBoard({ tasks, onTaskMove, onTaskClick }: KanbanBoardProps
                     className={cn(
                       "flex-1 space-y-2 rounded-[16px] p-2 transition-all duration-200 min-h-[200px]",
                       snapshot.isDraggingOver
-                        ? "bg-[#7C3AED]/5 border-2 border-dashed border-[#7C3AED]/30"
+                        ? "bg-[#00C896]/5 border-2 border-dashed border-[#00C896]/30"
                         : "bg-white/[0.02]"
                     )}
                   >

@@ -18,25 +18,25 @@ export default function LandingPage() {
       icon: Layout,
       title: "Kanban Boards",
       description: "Drag-and-drop tasks across customizable workflow stages with real-time updates.",
-      gradient: "from-[#7C3AED] to-[#2563EB]",
+      gradient: "from-[#00C896] to-[#14B8A6]",
     },
     {
       icon: Sparkles,
       title: "AI Assistant",
       description: "Get task prioritization suggestions and project insights powered by GPT-4.",
-      gradient: "from-[#06B6D4] to-[#7C3AED]",
+      gradient: "from-[#7DD3FC] to-[#00C896]",
     },
     {
       icon: Users,
       title: "Team Collaboration",
       description: "Workspaces with roles so everyone has the right access and visibility.",
-      gradient: "from-[#10B981] to-[#06B6D4]",
+      gradient: "from-[#22C55E] to-[#7DD3FC]",
     },
     {
       icon: BarChart3,
       title: "Analytics Dashboard",
       description: "Charts and metrics to see where things stand at a glance.",
-      gradient: "from-[#F59E0B] to-[#EF4444]",
+      gradient: "from-[#FBBF24] to-[#EF4444]",
     },
   ];
 
@@ -61,15 +61,15 @@ export default function LandingPage() {
       {/* Ambient background */}
       <div className="fixed inset-0 pointer-events-none gradient-mesh" />
       <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-[800px] h-[800px] bg-[#7C3AED]/[0.08] rounded-full blur-[150px]" />
-        <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-[#06B6D4]/[0.05] rounded-full blur-[150px]" />
+        <div className="absolute top-0 left-1/4 w-[800px] h-[800px] bg-[#00C896]/[0.08] rounded-full blur-[150px]" />
+        <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-[#7DD3FC]/[0.05] rounded-full blur-[150px]" />
       </div>
 
       {/* Nav */}
       <header className="relative border-b border-white/[0.06] glass-subtle sticky top-0 z-50">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 lg:px-8">
           <Link href="/" className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl gradient-primary shadow-lg shadow-[#7C3AED]/25">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl gradient-primary shadow-lg shadow-[#00C896]/25">
               <span className="text-white font-bold text-lg">K</span>
             </div>
             <span className="text-xl font-bold tracking-tight text-white">Kanvus</span>
@@ -84,7 +84,7 @@ export default function LandingPage() {
               <Button variant="ghost" className="rounded-[14px] text-white/60 hover:text-white hover:bg-white/[0.05]">Log in</Button>
             </Link>
             <Link href="/register">
-              <Button className="rounded-[14px] gradient-primary btn-glow border-0 shadow-lg shadow-[#7C3AED]/25">
+              <Button className="rounded-[14px] gradient-primary btn-glow border-0 shadow-lg shadow-[#00C896]/25">
                 Get Started Free
               </Button>
             </Link>
@@ -95,7 +95,7 @@ export default function LandingPage() {
       {/* Hero */}
       <section className="relative flex flex-col items-center justify-center py-28 px-4 text-center">
         <div className="relative">
-          <div className="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-sm font-medium text-[#06B6D4] mb-6 animate-slide-up">
+          <div className="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-sm font-medium text-[#7DD3FC] mb-6 animate-slide-up">
             <Zap className="h-4 w-4" />
             AI-Powered Project Management
           </div>
@@ -113,7 +113,7 @@ export default function LandingPage() {
           </p>
           <div className="flex items-center gap-4 justify-center animate-slide-up stagger-3">
             <Link href="/register">
-              <Button size="lg" className="gap-2 rounded-[14px] gradient-primary btn-glow border-0 shadow-xl shadow-[#7C3AED]/30 px-8">
+              <Button size="lg" className="gap-2 rounded-[14px] gradient-primary btn-glow border-0 shadow-xl shadow-[#00C896]/30 px-8">
                 Start for free
                 <ArrowRight className="h-4 w-4" />
               </Button>
@@ -128,9 +128,9 @@ export default function LandingPage() {
 
         {/* App Preview */}
         <div className="relative mt-20 w-full max-w-5xl animate-slide-up stagger-4">
-          <div className="absolute -inset-4 bg-gradient-to-r from-[#7C3AED]/10 via-[#2563EB]/10 to-[#06B6D4]/5 rounded-3xl blur-xl" />
+          <div className="absolute -inset-4 bg-gradient-to-r from-[#00C896]/10 via-[#14B8A6]/10 to-[#7DD3FC]/5 rounded-3xl blur-xl" />
           <div className="relative glass-strong rounded-[24px] p-2 hover-lift">
-            <div className="rounded-[22px] bg-[#09090B]/80 aspect-video flex items-center justify-center overflow-hidden">
+            <div className="rounded-[22px] bg-[#060606]/80 aspect-video flex items-center justify-center overflow-hidden">
               <div className="w-full p-8">
                 {/* Mock dashboard */}
                 <div className="flex items-center gap-3 mb-8">
@@ -178,7 +178,7 @@ export default function LandingPage() {
       <section id="features" className="relative py-28 px-4">
         <div className="container mx-auto">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-sm font-medium text-[#7C3AED] mb-4">
+            <div className="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-sm font-medium text-[#00C896] mb-4">
               <Sparkles className="h-4 w-4" />
               Features
             </div>
@@ -213,11 +213,11 @@ export default function LandingPage() {
       <section id="pricing" className="relative py-28 px-4">
         <div className="container mx-auto">
           <div className="relative glass-strong rounded-[24px] p-12 md:p-16 text-center overflow-hidden">
-            <div className="absolute top-0 right-0 h-64 w-64 bg-[#7C3AED]/10 rounded-full blur-3xl" />
-            <div className="absolute bottom-0 left-0 h-64 w-64 bg-[#06B6D4]/5 rounded-full blur-3xl" />
+            <div className="absolute top-0 right-0 h-64 w-64 bg-[#00C896]/10 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-0 h-64 w-64 bg-[#7DD3FC]/5 rounded-full blur-3xl" />
 
             <div className="relative">
-              <div className="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-sm font-medium text-[#10B981] mb-6">
+              <div className="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-sm font-medium text-[#22C55E] mb-6">
                 <Shield className="h-4 w-4" />
                 Free to Start
               </div>
@@ -228,13 +228,13 @@ export default function LandingPage() {
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-2xl mx-auto mb-10">
                 {benefits.map((b) => (
                   <div key={b} className="flex items-center gap-2.5 text-sm text-white/60">
-                    <CheckCircle2 className="h-4 w-4 text-[#10B981] shrink-0" />
+                    <CheckCircle2 className="h-4 w-4 text-[#22C55E] shrink-0" />
                     {b}
                   </div>
                 ))}
               </div>
               <Link href="/register">
-                <Button size="lg" className="gap-2 rounded-[14px] gradient-primary btn-glow border-0 shadow-xl shadow-[#7C3AED]/30 px-10">
+                <Button size="lg" className="gap-2 rounded-[14px] gradient-primary btn-glow border-0 shadow-xl shadow-[#00C896]/30 px-10">
                   Create your free account
                   <ArrowRight className="h-4 w-4" />
                 </Button>

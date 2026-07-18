@@ -20,14 +20,14 @@ export function Header({ onMenuClick }: { onMenuClick?: () => void }) {
   const [showUserMenu, setShowUserMenu] = React.useState(false);
 
   return (
-    <header className="flex h-16 items-center justify-between bg-[#111113]/60 backdrop-blur-xl border-b border-white/[0.06] px-4 lg:px-6">
+    <header className="flex h-16 items-center justify-between bg-[#101010]/60 backdrop-blur-xl border-b border-white/[0.06] px-4 lg:px-6">
       <div className="flex items-center gap-4">
         {onMenuClick && (
           <Button variant="ghost" size="icon" onClick={onMenuClick} className="lg:hidden rounded-[10px]">
             <Menu className="h-5 w-5" />
           </Button>
         )}
-        <div className="hidden md:flex items-center gap-2 glass-input rounded-[14px] px-3 py-2 transition-all focus-within:border-[#7C3AED]/30 focus-within:shadow-[0_0_0_3px_rgba(124,58,237,0.1)]">
+        <div className="hidden md:flex items-center gap-2 glass-input rounded-[14px] px-3 py-2 transition-all focus-within:border-[#00C896]/30 focus-within:shadow-[0_0_0_3px_rgba(124,58,237,0.1)]">
           <Search className="h-4 w-4 text-white/30" />
           <input
             type="text"
@@ -43,7 +43,7 @@ export function Header({ onMenuClick }: { onMenuClick?: () => void }) {
       <div className="flex items-center gap-2">
         <Button variant="ghost" size="icon" className="relative rounded-[10px] hover:bg-white/[0.05]">
           <Bell className="h-5 w-5 text-white/50" />
-          <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-[#EF4444] ring-2 ring-[#09090B] animate-pulse" />
+          <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-[#EF4444] ring-2 ring-[#060606] animate-pulse" />
         </Button>
 
         <div className="relative">

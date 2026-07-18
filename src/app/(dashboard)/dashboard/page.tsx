@@ -28,7 +28,7 @@ const TaskPieChart = dynamic(
   { ssr: false }
 );
 
-const PIE_COLORS = ["#7C3AED", "#10B981", "#EF4444", "#F59E0B", "#2563EB"];
+const PIE_COLORS = ["#00C896", "#22C55E", "#EF4444", "#FBBF24", "#14B8A6"];
 
 interface Task {
   status: string;
@@ -187,7 +187,7 @@ export default function DashboardPage() {
         <Card className="lg:col-span-2">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-base">
-              <TrendingUp className="h-4 w-4 text-[#7C3AED]" />
+              <TrendingUp className="h-4 w-4 text-[#00C896]" />
               Weekly Activity
             </CardTitle>
           </CardHeader>
@@ -275,7 +275,7 @@ export default function DashboardPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle className="flex items-center gap-2 text-base">
-              <Users className="h-4 w-4 text-[#7C3AED]" />
+              <Users className="h-4 w-4 text-[#00C896]" />
               Team Members
             </CardTitle>
           </CardHeader>
@@ -294,7 +294,7 @@ export default function DashboardPage() {
                       <p className="text-sm font-medium">{member.name}</p>
                       <p className="text-xs text-white/40 capitalize">{member.role}</p>
                     </div>
-                    <div className="h-2 w-2 rounded-full bg-[#10B981] animate-pulse" />
+                    <div className="h-2 w-2 rounded-full bg-[#22C55E] animate-pulse" />
                   </div>
                 ))}
               </div>
@@ -307,7 +307,7 @@ export default function DashboardPage() {
       <Card className="animate-slide-up stagger-6">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-base">
-            <Clock className="h-4 w-4 text-[#F59E0B]" />
+            <Clock className="h-4 w-4 text-[#FBBF24]" />
             Upcoming Deadlines
           </CardTitle>
         </CardHeader>

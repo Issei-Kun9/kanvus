@@ -54,11 +54,11 @@ export function RegisterForm() {
       {/* Left side - Branding */}
       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden items-center justify-center gradient-mesh">
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/3 left-1/3 h-96 w-96 bg-[#7C3AED]/20 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/3 right-1/3 h-96 w-96 bg-[#10B981]/10 rounded-full blur-3xl" />
+          <div className="absolute top-1/3 left-1/3 h-96 w-96 bg-[#00C896]/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/3 right-1/3 h-96 w-96 bg-[#22C55E]/10 rounded-full blur-3xl" />
         </div>
         <div className="relative text-center px-12">
-          <div className="flex h-20 w-20 items-center justify-center rounded-[20px] gradient-primary shadow-2xl shadow-[#7C3AED]/30 mx-auto mb-8 animate-float">
+          <div className="flex h-20 w-20 items-center justify-center rounded-[20px] gradient-primary shadow-2xl shadow-[#00C896]/30 mx-auto mb-8 animate-float">
             <span className="text-white font-bold text-4xl">K</span>
           </div>
           <h1 className="text-5xl font-bold text-white mb-4 tracking-tight">Kanvus</h1>
@@ -66,8 +66,8 @@ export function RegisterForm() {
           <div className="space-y-4 text-left max-w-xs mx-auto">
             {["Kanban boards", "AI assistant", "Team workspaces"].map((f) => (
               <div key={f} className="flex items-center gap-3 text-white/60">
-                <div className="h-6 w-6 rounded-lg bg-[#10B981]/20 flex items-center justify-center">
-                  <CheckCircle2 className="h-3 w-3 text-[#10B981]" />
+                <div className="h-6 w-6 rounded-lg bg-[#22C55E]/20 flex items-center justify-center">
+                  <CheckCircle2 className="h-3 w-3 text-[#22C55E]" />
                 </div>
                 <span className="text-sm">{f}</span>
               </div>
@@ -79,12 +79,12 @@ export function RegisterForm() {
       {/* Right side - Form */}
       <div className="flex-1 flex items-center justify-center px-6 py-12 relative">
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/3 right-1/4 h-96 w-96 bg-[#7C3AED]/[0.03] rounded-full blur-[120px]" />
+          <div className="absolute top-1/3 right-1/4 h-96 w-96 bg-[#00C896]/[0.03] rounded-full blur-[120px]" />
         </div>
         <div className="w-full max-w-md relative z-10 animate-slide-up">
           {/* Mobile logo */}
           <div className="lg:hidden flex items-center gap-2.5 mb-10">
-            <div className="flex h-10 w-10 items-center justify-center rounded-[12px] gradient-primary shadow-lg shadow-[#7C3AED]/25 overflow-hidden">
+            <div className="flex h-10 w-10 items-center justify-center rounded-[12px] gradient-primary shadow-lg shadow-[#00C896]/25 overflow-hidden">
               <svg viewBox="0 0 32 32" className="w-7 h-7" fill="none">
                 <g stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="10" y1="6" x2="10" y2="26"/>
@@ -165,10 +165,10 @@ export function RegisterForm() {
                           ? passwordStrength <= 1
                             ? "bg-[#EF4444]"
                             : passwordStrength <= 2
-                            ? "bg-[#F59E0B]"
+                            ? "bg-[#FBBF24]"
                             : passwordStrength <= 3
-                            ? "bg-[#10B981]"
-                            : "bg-[#06B6D4]"
+                            ? "bg-[#22C55E]"
+                            : "bg-[#7DD3FC]"
                           : "bg-white/10"
                       }`}
                     />
@@ -182,7 +182,7 @@ export function RegisterForm() {
 
             <Button
               type="submit"
-              className="w-full rounded-[14px] gradient-primary btn-glow border-0 shadow-lg shadow-[#7C3AED]/20 h-12"
+              className="w-full rounded-[14px] gradient-primary btn-glow border-0 shadow-lg shadow-[#00C896]/20 h-12"
               disabled={loading}
             >
               {loading ? (
@@ -201,7 +201,7 @@ export function RegisterForm() {
 
           <p className="text-center text-sm text-white/30 mt-6">
             Already have an account?{" "}
-            <Link href="/login" className="text-[#7C3AED] font-medium hover:text-[#6D28D9] transition-colors">
+            <Link href="/login" className="text-[#00C896] font-medium hover:text-[#00A87D] transition-colors">
               Sign in
             </Link>
           </p>

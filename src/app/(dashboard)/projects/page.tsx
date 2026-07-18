@@ -79,7 +79,7 @@ export default function ProjectsPage() {
     return (
       <div className="flex items-center justify-center py-24">
         <div className="flex flex-col items-center gap-3 text-white/30">
-          <div className="h-10 w-10 rounded-full border-2 border-[#7C3AED] border-t-transparent animate-spin" />
+          <div className="h-10 w-10 rounded-full border-2 border-[#00C896] border-t-transparent animate-spin" />
           <p className="text-sm">Loading workspace...</p>
         </div>
       </div>

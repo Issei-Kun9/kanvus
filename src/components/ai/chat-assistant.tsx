@@ -88,7 +88,7 @@ export function ChatAssistant({ workspaceId }: ChatAssistantProps) {
           <p className="text-xs text-white/40">Powered by GPT-4</p>
         </div>
         <div className="ml-auto flex items-center gap-2">
-          <div className="h-2 w-2 rounded-full bg-[#10B981] animate-pulse" />
+          <div className="h-2 w-2 rounded-full bg-[#22C55E] animate-pulse" />
           <span className="text-xs text-white/40">Online</span>
         </div>
       </div>
@@ -115,7 +115,7 @@ export function ChatAssistant({ workspaceId }: ChatAssistantProps) {
                     `animate-slide-up stagger-${i + 1}`
                   )}
                 >
-                  <Sparkles className="h-4 w-4 text-[#06B6D4] mb-2" />
+                  <Sparkles className="h-4 w-4 text-[#7DD3FC] mb-2" />
                   {s}
                 </button>
               ))}
@@ -161,9 +161,9 @@ export function ChatAssistant({ workspaceId }: ChatAssistantProps) {
             </div>
             <div className="glass-card rounded-[16px] px-4 py-3">
               <div className="flex gap-1.5">
-                <div className="h-2 w-2 rounded-full bg-[#06B6D4] animate-bounce [animation-delay:-0.3s]" />
-                <div className="h-2 w-2 rounded-full bg-[#06B6D4] animate-bounce [animation-delay:-0.15s]" />
-                <div className="h-2 w-2 rounded-full bg-[#06B6D4] animate-bounce" />
+                <div className="h-2 w-2 rounded-full bg-[#7DD3FC] animate-bounce [animation-delay:-0.3s]" />
+                <div className="h-2 w-2 rounded-full bg-[#7DD3FC] animate-bounce [animation-delay:-0.15s]" />
+                <div className="h-2 w-2 rounded-full bg-[#7DD3FC] animate-bounce" />
               </div>
             </div>
           </div>

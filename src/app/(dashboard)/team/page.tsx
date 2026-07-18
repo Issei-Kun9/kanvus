@@ -34,8 +34,8 @@ export default function TeamPage() {
   }, [workspaceId]);
 
   const roleConfig: Record<string, { color: string; bg: string }> = {
-    OWNER: { color: "#7C3AED", bg: "bg-[#7C3AED]/15" },
-    ADMIN: { color: "#2563EB", bg: "bg-[#2563EB]/15" },
+    OWNER: { color: "#00C896", bg: "bg-[#00C896]/15" },
+    ADMIN: { color: "#14B8A6", bg: "bg-[#14B8A6]/15" },
     MEMBER: { color: "#6B7280", bg: "bg-white/[0.06]" },
   };
 
@@ -80,7 +80,7 @@ export default function TeamPage() {
       <Card className="animate-slide-up stagger-1">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-base">
-            <Users className="h-4 w-4 text-[#7C3AED]" />
+            <Users className="h-4 w-4 text-[#00C896]" />
             Members ({members.length})
           </CardTitle>
         </CardHeader>
@@ -100,7 +100,7 @@ export default function TeamPage() {
                         fallback={member.name || member.email || "U"}
                         size="md"
                       />
-                      <div className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full bg-[#10B981] border-2 border-[#09090B]" />
+                      <div className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full bg-[#22C55E] border-2 border-[#060606]" />
                     </div>
                     <div>
                       <p className="text-sm font-medium">{member.name || "Unknown"}</p>

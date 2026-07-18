@@ -79,13 +79,13 @@ export default function BillingPage() {
             key={plan.name}
             className={cn(
               "relative overflow-hidden animate-slide-up",
-              plan.popular ? "border-[#7C3AED]/50 shadow-lg shadow-[#7C3AED]/10" : "",
+              plan.popular ? "border-[#00C896]/50 shadow-lg shadow-[#00C896]/10" : "",
               `stagger-${i + 1}`
             )}
           >
             {/* Gradient accent */}
             {plan.popular && (
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#7C3AED] to-[#2563EB]" />
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#00C896] to-[#14B8A6]" />
             )}
             
             {plan.popular && (
@@ -118,7 +118,7 @@ export default function BillingPage() {
               <ul className="space-y-3">
                 {plan.features.map((feature) => (
                   <li key={feature} className="flex items-center gap-2.5 text-sm text-white/60">
-                    <CheckCircle2 className="h-4 w-4 text-[#10B981] shrink-0" />
+                    <CheckCircle2 className="h-4 w-4 text-[#22C55E] shrink-0" />
                     {feature}
                   </li>
                 ))}

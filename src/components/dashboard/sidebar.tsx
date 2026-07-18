@@ -38,21 +38,21 @@ export function Sidebar({ collapsed = false, onToggle }: SidebarProps) {
     <aside
       className={cn(
         "flex flex-col transition-all duration-300 ease-out relative overflow-hidden",
-        "bg-[#111113]/80 backdrop-blur-xl border-r border-white/[0.06]",
+        "bg-[#101010]/80 backdrop-blur-xl border-r border-white/[0.06]",
         collapsed ? "w-[72px]" : "w-[280px]"
       )}
     >
       {/* Ambient glow */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-48 bg-[#7C3AED]/[0.08] rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-0 w-32 h-32 bg-[#06B6D4]/[0.04] rounded-full blur-3xl" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-48 bg-[#00C896]/[0.08] rounded-full blur-3xl" />
+        <div className="absolute bottom-20 right-0 w-32 h-32 bg-[#7DD3FC]/[0.04] rounded-full blur-3xl" />
       </div>
 
       {/* Logo */}
       <div className="relative flex h-16 items-center border-b border-white/[0.06] px-4">
         {!collapsed ? (
           <Link href="/dashboard" className="flex items-center gap-3 hover-scale">
-            <div className="relative flex h-9 w-9 items-center justify-center rounded-[12px] gradient-primary shadow-lg shadow-[#7C3AED]/25 overflow-hidden">
+            <div className="relative flex h-9 w-9 items-center justify-center rounded-[12px] gradient-primary shadow-lg shadow-[#00C896]/25 overflow-hidden">
               <svg viewBox="0 0 32 32" className="w-6 h-6" fill="none">
                 <g stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="10" y1="6" x2="10" y2="26"/>
@@ -71,7 +71,7 @@ export function Sidebar({ collapsed = false, onToggle }: SidebarProps) {
           </Link>
         ) : (
           <Link href="/dashboard" className="mx-auto hover-scale">
-            <div className="relative flex h-9 w-9 items-center justify-center rounded-[12px] gradient-primary shadow-lg shadow-[#7C3AED]/25 overflow-hidden">
+            <div className="relative flex h-9 w-9 items-center justify-center rounded-[12px] gradient-primary shadow-lg shadow-[#00C896]/25 overflow-hidden">
               <svg viewBox="0 0 32 32" className="w-6 h-6" fill="none">
                 <g stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="10" y1="6" x2="10" y2="26"/>
@@ -102,7 +102,7 @@ export function Sidebar({ collapsed = false, onToggle }: SidebarProps) {
               className={cn(
                 "flex items-center gap-3 rounded-[14px] px-3 py-2.5 text-sm font-medium transition-all duration-200",
                 isActive
-                  ? "bg-white/[0.08] text-white shadow-lg shadow-[#7C3AED]/10 border border-white/[0.06]"
+                  ? "bg-white/[0.08] text-white shadow-lg shadow-[#00C896]/10 border border-white/[0.06]"
                   : "text-white/40 hover:bg-white/[0.04] hover:text-white/70 border border-transparent",
                 collapsed && "justify-center px-2"
               )}
@@ -110,11 +110,11 @@ export function Sidebar({ collapsed = false, onToggle }: SidebarProps) {
             >
               <item.icon className={cn(
                 "h-5 w-5 shrink-0 transition-colors",
-                isActive ? "text-[#7C3AED]" : ""
+                isActive ? "text-[#00C896]" : ""
               )} />
               {!collapsed && <span>{item.label}</span>}
               {isActive && !collapsed && (
-                <div className="ml-auto h-1.5 w-1.5 rounded-full bg-[#7C3AED] shadow-sm shadow-[#7C3AED]/50" />
+                <div className="ml-auto h-1.5 w-1.5 rounded-full bg-[#00C896] shadow-sm shadow-[#00C896]/50" />
               )}
             </Link>
           );
