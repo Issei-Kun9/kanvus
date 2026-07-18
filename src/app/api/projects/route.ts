@@ -34,7 +34,7 @@ export async function GET(req: NextRequest) {
       include: {
         _count: { select: { tasks: true } },
         tasks: {
-          select: { status: true },
+          select: { status: true, dueDate: true, createdAt: true, priority: true },
         },
       },
       orderBy: { updatedAt: "desc" },
@@ -51,6 +51,7 @@ export async function GET(req: NextRequest) {
       taskCount: p._count.tasks,
       completedTaskCount: p.tasks.filter((t) => t.status === "DONE").length,
       inProgressCount: p.tasks.filter((t) => t.status === "IN_PROGRESS").length,
+      tasks: p.tasks,
     }));
 
     return NextResponse.json(projectsWithStats);
