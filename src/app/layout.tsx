@@ -29,6 +29,14 @@ export const metadata: Metadata = {
     description:
       "Manage projects with AI-powered insights and beautiful Kanban boards.",
     type: "website",
+    images: ["/og-image.svg"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "FlowBoard - AI-Powered Project Management",
+    description:
+      "Manage projects with AI-powered insights and beautiful Kanban boards.",
+    images: ["/og-image.svg"],
   },
 };
 
