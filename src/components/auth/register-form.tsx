@@ -4,7 +4,7 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ArrowRight, Sparkles, Eye, EyeOff, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Eye, EyeOff, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 
 export function RegisterForm() {

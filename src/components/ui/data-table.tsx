@@ -3,8 +3,7 @@
 import * as React from "react";
 import {
   ChevronDown, ChevronUp, ChevronsUpDown, Check, ChevronsLeft,
-  ChevronsRight, ChevronLeft, ChevronRight, Search, X, Download,
-  Filter, MoreHorizontal, Trash2, Edit, Copy
+  ChevronsRight, ChevronLeft, ChevronRight, Search, X
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";

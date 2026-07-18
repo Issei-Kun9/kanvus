@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 import { TASK_PRIORITY_CONFIG } from "@/lib/utils";
-import { Calendar, MessageSquare, Paperclip } from "lucide-react";
+import { Calendar, MessageSquare } from "lucide-react";
 import { format } from "date-fns";
 import type { Task } from "@/types";
 

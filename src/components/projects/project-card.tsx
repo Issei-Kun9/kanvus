@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ProgressBar } from "@/components/ui/progress-bar";
-import { FolderKanban, MoreHorizontal, ArrowRight } from "lucide-react";
+import { FolderKanban, ArrowRight } from "lucide-react";
 import { formatDate } from "@/lib/utils";
 import type { Project } from "@/types";
 

@@ -14,7 +14,6 @@ import {
   ChevronRight,
   Sparkles,
   HelpCircle,
-  MessageSquare,
 } from "lucide-react";
 
 const navItems = [

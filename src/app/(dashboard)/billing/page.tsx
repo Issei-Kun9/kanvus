@@ -4,7 +4,7 @@ import * as React from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle2, Sparkles, CreditCard, Zap } from "lucide-react";
+import { CheckCircle2, Sparkles, CreditCard } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const plans = [

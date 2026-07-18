@@ -7,7 +7,6 @@ import { Sidebar } from "@/components/dashboard/sidebar";
 import { Header } from "@/components/dashboard/header";
 import { CommandPalette } from "@/components/command-palette";
 import { ShortcutsDialog, useGlobalShortcuts } from "@/components/ui/keyboard-shortcuts";
-import { LoadingBar } from "@/components/ui/loading";
 
 export default function DashboardLayout({
   children,
@@ -19,20 +18,6 @@ export default function DashboardLayout({
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const [commandPaletteOpen, setCommandPaletteOpen] = React.useState(false);
   const [shortcutsOpen, setShortcutsOpen] = React.useState(false);
-  const [isLoading, setIsLoading] = React.useState(false);
-
-  // Simulate route transitions
-  React.useEffect(() => {
-    const handleStart = () => setIsLoading(true);
-    const handleComplete = () => setIsLoading(false);
-    
-    // Use MutationObserver to detect route changes
-    const observer = new MutationObserver(() => {
-      setIsLoading(false);
-    });
-    
-    return () => observer.disconnect();
-  }, []);
 
   // Toggle theme
   const toggleTheme = () => {
@@ -55,9 +40,6 @@ export default function DashboardLayout({
   return (
     <SessionProvider>
       <div className="flex h-screen overflow-hidden">
-        {/* Loading bar */}
-        <LoadingBar isLoading={isLoading} />
-
         {/* Ambient background */}
         <div className="fixed inset-0 pointer-events-none gradient-mesh" />
 

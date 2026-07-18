@@ -1,12 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import {
-  FolderKanban, Users, MessageSquare, BarChart3,
-  CheckCircle2, Plus, ArrowRight
-} from "lucide-react";
+import { Plus } from "lucide-react";
 
 interface EmptyStateProps {
   type: "projects" | "tasks" | "team" | "chat" | "analytics" | "search" | "generic";

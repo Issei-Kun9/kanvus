@@ -5,7 +5,6 @@ let _stripe: Stripe | null = null;
 function getStripe(): Stripe {
   if (!_stripe) {
     _stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "sk_test_placeholder", {
-      apiVersion: "2026-06-24.dahlia",
       typescript: true,
     });
   }
@@ -35,7 +34,7 @@ export const PLANS = {
     name: "Pro",
     description: "For growing teams",
     price: 12,
-    stripePriceId: "price_pro_monthly",
+    stripePriceId: process.env.STRIPE_PRO_PRICE_ID || "price_pro_monthly",
     features: [
       "Unlimited workspaces",
       "Unlimited projects",

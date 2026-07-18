@@ -3,9 +3,9 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import {
-  Search, Home, FolderKanban, Users, Settings, CreditCard,
-  MessageSquare, LayoutDashboard, Plus, Moon, Sun, LogOut,
-  Command, Hash, ArrowRight, FileText, Bell, Zap
+  Search, FolderKanban, Users, Settings, CreditCard,
+  MessageSquare, LayoutDashboard, Plus, Moon,
+  Command, ArrowRight, Bell,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 

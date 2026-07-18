@@ -85,6 +85,23 @@ export async function POST(req: NextRequest) {
 
     const { labelIds, ...taskData } = validated.data;
 
+    const project = await db.project.findUnique({
+      where: { id: taskData.projectId },
+      select: { workspaceId: true },
+    });
+    if (!project) {
+      return NextResponse.json({ error: "Project not found" }, { status: 404 });
+    }
+
+    const member = await db.workspaceMember.findUnique({
+      where: {
+        userId_workspaceId: { userId: session.user.id, workspaceId: project.workspaceId },
+      },
+    });
+    if (!member) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+
     const maxOrder = await db.task.aggregate({
       where: { projectId: taskData.projectId, status: taskData.status || "TODO" },
       _max: { order: true },

@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Users, UserPlus, Settings, Mail, MoreHorizontal } from "lucide-react";
+import { Users, UserPlus, MoreHorizontal } from "lucide-react";
 
 interface TeamMember {
   id: string;

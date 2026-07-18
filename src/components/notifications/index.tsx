@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import {
-  Bell, X, Check, CheckCheck, Settings, Trash2,
+  Bell, X, CheckCheck,
   MessageSquare, UserPlus, FolderKanban, CreditCard,
   AlertTriangle, Sparkles, Clock
 } from "lucide-react";

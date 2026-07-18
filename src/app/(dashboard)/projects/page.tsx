@@ -4,7 +4,7 @@ import * as React from "react";
 import { ProjectList } from "@/components/projects/project-list";
 import { CreateProjectModal } from "@/components/projects/create-project-modal";
 import { Button } from "@/components/ui/button";
-import { Plus, Search, FolderKanban, Sparkles } from "lucide-react";
+import { Plus, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useWorkspace } from "@/hooks/use-workspace";
 
