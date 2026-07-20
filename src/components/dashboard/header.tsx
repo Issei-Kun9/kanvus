@@ -5,6 +5,7 @@ import { useSession, signOut } from "next-auth/react";
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { NotificationCenter } from "@/components/notifications";
+import { ThemeToggle } from "@/components/theme-toggle";
 import {
   Menu, Search, LogOut, User, ChevronDown, Command,
 } from "lucide-react";
@@ -53,6 +54,9 @@ export function Header({ onMenuClick, onCommandPalette }: HeaderProps) {
       </div>
 
       <div className="flex items-center gap-2">
+        {/* Theme Toggle */}
+        <ThemeToggle />
+
         {/* Notification Center */}
         <NotificationCenter />
 
