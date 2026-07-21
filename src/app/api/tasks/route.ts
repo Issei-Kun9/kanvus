@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { toCsv } from "@/lib/csv";
 import { z } from "zod";
 
 const createTaskSchema = z.object({
@@ -25,6 +26,7 @@ export async function GET(req: NextRequest) {
     const projectId = searchParams.get("projectId");
     const status = searchParams.get("status");
     const assigneeId = searchParams.get("assigneeId");
+    const exportCsv = searchParams.get("export") === "csv";
 
     if (!projectId) {
       return NextResponse.json({ error: "Project ID required" }, { status: 400 });
@@ -58,9 +60,34 @@ export async function GET(req: NextRequest) {
         creator: { select: { id: true, name: true, image: true } },
         labels: { include: { label: true } },
         _count: { select: { comments: true } },
+        project: { select: { name: true } },
       },
       orderBy: { order: "asc" },
     });
+
+    if (exportCsv) {
+      const csv = toCsv(
+        tasks.map((task) => ({
+          id: task.id,
+          title: task.title,
+          description: task.description ?? "",
+          status: task.status,
+          priority: task.priority,
+          dueDate: task.dueDate ? task.dueDate.toISOString() : "",
+          projectName: task.project.name,
+          assigneeName: task.assignee?.name ?? "",
+          creatorName: task.creator?.name ?? "",
+          createdAt: task.createdAt.toISOString(),
+        }))
+      );
+
+      return new NextResponse(csv, {
+        headers: {
+          "Content-Type": "text/csv; charset=utf-8",
+          "Content-Disposition": `attachment; filename="tasks-${projectId}.csv"`,
+        },
+      });
+    }
 
     return NextResponse.json(tasks);
   } catch (error) {
