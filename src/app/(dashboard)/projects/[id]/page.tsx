@@ -8,7 +8,7 @@ import { CreateTaskModal } from "@/components/tasks/create-task-modal";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Plus, Search } from "lucide-react";
+import { ArrowLeft, Download, Plus, Search } from "lucide-react";
 import Link from "next/link";
 import type { Task, TaskStatus, TaskPriority } from "@/types";
 
@@ -166,6 +166,28 @@ export default function ProjectDetailPage() {
     }
   };
 
+  const handleExportTasks = async () => {
+    try {
+      const res = await fetch(`/api/tasks?projectId=${projectId}&export=csv`);
+
+      if (!res.ok) {
+        throw new Error("Export failed");
+      }
+
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `tasks-${projectId}.csv`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error("Failed to export tasks:", err);
+    }
+  };
+
   const filteredTasks = search
     ? (project?.tasks || []).filter((t) =>
         t.title.toLowerCase().includes(search.toLowerCase())
@@ -226,6 +248,14 @@ export default function ProjectDetailPage() {
               className="w-48 h-10 pl-9 rounded-[14px]"
             />
           </div>
+          <Button
+            variant="outline"
+            onClick={handleExportTasks}
+            className="gap-2 rounded-[14px]"
+          >
+            <Download className="h-4 w-4" />
+            Export CSV
+          </Button>
           <Button
             onClick={() => setShowCreateTask(true)}
             className="gap-2 rounded-[14px] gradient-primary btn-glow"

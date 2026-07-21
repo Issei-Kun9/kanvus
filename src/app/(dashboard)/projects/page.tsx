@@ -4,7 +4,7 @@ import * as React from "react";
 import { ProjectList } from "@/components/projects/project-list";
 import { CreateProjectModal } from "@/components/projects/create-project-modal";
 import { Button } from "@/components/ui/button";
-import { Plus, Search } from "lucide-react";
+import { Download, Plus, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useWorkspace } from "@/hooks/use-workspace";
 
@@ -71,6 +71,25 @@ export default function ProjectsPage() {
     }
   };
 
+  const handleExportProjects = async () => {
+    try {
+      const res = await fetch(`/api/projects/export?workspaceId=${workspaceId}`);
+      if (!res.ok) throw new Error("Export failed");
+
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `projects-${workspaceId}.csv`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error("Failed to export projects:", err);
+    }
+  };
+
   const filtered = projects.filter((p) =>
     p.name.toLowerCase().includes(search.toLowerCase())
   );
@@ -96,10 +115,20 @@ export default function ProjectsPage() {
             Manage and track all your projects.
           </p>
         </div>
-        <Button onClick={() => setShowCreate(true)} className="gap-2 rounded-[14px] gradient-primary btn-glow">
-          <Plus className="h-4 w-4" />
-          New Project
-        </Button>
+        <div className="flex items-center gap-3">
+          <Button
+            variant="outline"
+            onClick={handleExportProjects}
+            className="gap-2 rounded-[14px]"
+          >
+            <Download className="h-4 w-4" />
+            Export CSV
+          </Button>
+          <Button onClick={() => setShowCreate(true)} className="gap-2 rounded-[14px] gradient-primary btn-glow">
+            <Plus className="h-4 w-4" />
+            New Project
+          </Button>
+        </div>
       </div>
 
       {/* Search */}
